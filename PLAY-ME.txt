@@ -1,0 +1,29 @@
+SNAKE OUT OF BOUNDS — ENGLISH EDITION
+
+Extract this ZIP completely before playing.
+
+BROWSER
+Open SnakeOutOfBounds.html in a modern desktop browser.
+No internet connection or installation is required.
+
+WINDOWS
+Run SnakeOutOfBounds-Windows.exe.
+Requires the Windows .NET Framework 4.x system component.
+See README-Snake-Windows.txt for the native build guide.
+
+CONTROLS
+WASD / arrows: turn
+Space: activate selected rule / devour tail
+1 / 2: choose a rule
+Shift: boost with stored energy
+Esc / P: pause
+R: restart
+L: English / Chinese
+M: sound
+
+English is the default. Your saved language preference is retained.
+The browser and Windows builds keep separate local high scores.
+
+rogue-snake/ contains the editable browser source, cover, real screenshots,
+complete rules, itch.io page copy, credits, license and validation notes.
+Start with rogue-snake/README.txt for the full game guide.
