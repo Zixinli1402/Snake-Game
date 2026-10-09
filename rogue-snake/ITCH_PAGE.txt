@@ -1,0 +1,115 @@
+ITCH.IO PAGE COPY / itch.io 页面文案
+
+Title / 标题
+Snake Out of Bounds / 不守规矩的贪吃蛇
+
+Short description / 简介
+Classic Snake. Eight temporary exceptions. Choose your rule, then turn danger into your next high score.
+经典贪吃蛇，八种临时例外。选择规则，把危险变成下一次最高分。
+
+Suggested tags / 建议标签
+Arcade, Snake, 2D, Pixel Art, Singleplayer, Roguelike, HTML5
+
+ENGLISH DESCRIPTION
+===================
+EAT. GROW. BREAK THE RULES.
+
+Your instincts know Snake. These rules have other plans.
+
+On a 28 × 22 neon grid, red apples grow your snake while walls, rocks, poison, and your own body threaten the run. Every rule choice offers two cards. Pick one, save it, then press Space to activate a 10-second exception at the moment you need it.
+
+Eight temporary rules change what danger means:
+• Wall Walker — Wrap through the edges.
+• Cut the Tail — Cut your body instead of dying, and score from the lost segments.
+• Antidote — Poison becomes double-value food.
+• Tail Burner — Consume tail segments for energy, then hold Shift to boost.
+• Ghost Sprint — Race ahead automatically and consume rocks for points.
+• Value Flip — Apples lose their points; poison and rocks become valuable.
+• Food Hunt — Red apples pursue your head.
+• Center Stage — Your head stays centered as the world moves and wraps around you.
+
+The first choice appears after 8 seconds, then every 18 seconds. Choosing pauses the game and replaces your previous rule. Activate each selection once; further Space presses do not extend the 10-second timer. Only one rule is active at a time, so watch its countdown: a safe move now may become fatal when the rule ends.
+
+Prefer immediate activation? Check “Activate rules automatically after choosing” on the title screen. Leave it unchecked to keep manual Space activation.
+
+Length raises your multiplier from 1× to a maximum of 8×, increasing once per five segments beyond the starting length of five. Ordinary apples earn 10 × multiplier. Safe poison earns 20 × multiplier. Cutting awards 2 × removed segments × the pre-cut multiplier. Rocks earn 4 × multiplier during Ghost Sprint, or 12 × multiplier during Value Flip. Value Flip’s ordinary apples still grow the snake but score zero.
+
+CONTROLS
+WASD / Arrows — Turn
+Space — Activate your selected rule; consume tail during Tail Burner
+Hold Shift — Spend energy to boost
+1 / 2 / Click — Pick one card
+Esc / P — Pause
+R — Restart
+L — Chinese / English
+M — Mute
+
+Play in a desktop browser, preferably fullscreen. Click the game to enable sound and keyboard control. English is the default; L switches to Chinese. The death screen records score, maximum length, survival time, and high score. Browser high scores are saved when localStorage is available. An offline standalone HTML and a native Windows build are included; the native build uses .NET Framework 4.x and stores its own high score separately.
+
+AI AND ASSETS
+The concept and eight rules were supplied by the requester. Code, pixel geometry, cover art, interface copy, and synthesized audio were created with AI assistance from OpenAI Codex. Audio is generated at runtime from original tones and noise. No external artwork, recordings, samples, downloaded fonts, or game libraries are bundled. MIT-licensed source and credits are included.
+
+
+中文页面文案
+============
+吃下去。长起来。让规则为你让路。
+
+你熟悉贪吃蛇，但这一次，规则也会变化。
+
+在 28 × 22 的霓虹棋盘上，红苹果让你长大；墙、石头、毒苹果与自己的身体都会威胁本局。每次升级给出两张规则卡，选一张保留，再按空格发动持续 10 秒的临时例外。
+
+八种规则改变危险的意义：
+• 穿墙：越过边界，从对侧出现。
+• 自切：撞身体时切掉尾部，并按切掉节数得分。
+• 毒即是食：毒苹果成为双倍基础分的食物。
+• 吞尾加速：吞尾获得能量，按住 Shift 加速。
+• 疾速穿石：自动高速移动，穿过并消耗石头获得分数。
+• 反转价值：红苹果不再得分，毒苹果与石头变得有价值。
+• 食物来找你：红苹果主动追逐蛇头。
+• 蛇在中心：蛇头保持在画面中心，世界围绕你移动并环绕。
+
+首次选牌在存活 8 秒后出现，之后每 18 秒一次。选牌期间游戏暂停，新选择替换旧规则。每张卡只能发动一次，重复空格不会延长 10 秒倒计时。同时只会有一条规则生效：现在安全的路线，可能在规则结束后致命。
+
+标题页可勾选“选中规则后自动激活”，让规则在选牌后立即发动。不勾选则保留空格手动激活。
+
+长度每比初始 5 节多 5 节，倍率加 1，最高 8 倍。普通红苹果得 10 × 倍率；安全毒苹果得 20 × 倍率；自切得 2 × 切掉节数 × 切断前倍率。疾速穿石中的石头得 4 × 倍率，反转价值中的石头得 12 × 倍率。反转价值下红苹果依然长一节，但得 0 分。
+
+操作
+WASD / 方向键：转向
+空格：发动已选规则；吞尾加速期间吞尾
+按住 Shift：消耗能量加速
+1 / 2 / 点击：二选一
+Esc / P：暂停
+R：重新开始
+L：中文 / English
+M：静音
+
+请用桌面浏览器，建议全屏。先点击游戏启用声音与键盘操作。默认英文，按 L 切换中文。死亡结算记录分数、最大长度、生存时间及最高分；浏览器允许 localStorage 时会保存最高分。另提供离线单文件 HTML 与 Windows 原生版；原生版使用 .NET Framework 4.x，最高分单独保存。
+
+AI 与素材
+概念与八种规则由用户提出。代码、像素几何画面、封面、界面文案和合成音频由 OpenAI Codex 辅助生成。音频实时合成原创音调与噪声。不打包外部图片、录音、样本、下载字体或游戏程序库。附带 MIT 许可源码与完整归属说明。
+
+
+UPLOAD SETTINGS / 上传设置
+=========================
+Project kind: HTML
+HTML upload: ../SnakeOutOfBounds-itch.zip
+Check: playable in browser
+Entry: index.html at ZIP root
+Embed: 1280 × 850
+Fullscreen: enable
+Language: Chinese and English
+Cover: cover.png, 1280 × 720 promotional illustration
+Standalone download: ../SnakeOutOfBounds.html
+Windows download: ../SnakeOutOfBounds-Windows.zip
+Source download: ../SnakeOutOfBounds-source.zip
+
+SCREENSHOTS / 截图
+==================
+Use actual gameplay captures: a long snake, the two-card choice, a body cut, safe poison during a relevant rule, and Center Stage’s moving view. cover.png is cover art, not a gameplay screenshot.
+使用实际游戏截图：长蛇、二选一、身体切断、临时规则下安全吃毒苹果，以及蛇在中心的移动视角。cover.png 是宣传封面。
+
+PUBLISHING / 发布
+================
+This file is paste-ready copy. The game has not been uploaded, published, or submitted automatically. Publish from your own itch.io account, then submit the project to a jam if desired and confirm its current rules, deadline, and entry listing.
+此文案可直接复制；游戏尚未自动上传、发布或提交参赛。请通过你的 itch.io 账号发布，需要参赛时再提交项目并确认当前规则、截止时间及参赛记录。

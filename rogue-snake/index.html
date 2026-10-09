@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d16">
+  <meta name="description" content="Snake Out of Bounds — an endless arcade snake game with eight temporary rule mutations.">
+  <title>Snake Out of Bounds</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="cabinet" id="cabinet">
+  <header class="topbar">
+    <a class="brand" href="#" id="home" aria-label="Title screen"><span class="brand-icon">↗</span><span><b>SNAKE<span class="brand-small"> OUT OF BOUNDS</span></b><small id="brandSub">EAT. GROW. BREAK THE RULES.</small></span></a>
+    <div class="record"><span id="bestLabel">HIGH SCORE</span><strong id="best">000000</strong></div>
+    <div class="top-actions"><button id="language" class="icon-button" aria-label="切换至中文">中文</button><button id="sound" class="icon-button" aria-label="Mute sound">♪</button><button id="pause" class="icon-button" aria-label="Pause">Ⅱ</button></div>
+  </header>
+  <main class="arena">
+    <section class="board-shell" aria-label="Game board">
+      <div class="board-status"><span><i id="statusDot"></i><b id="status">AWAITING PLAYER</b></span><span id="coordinates">28 × 22 / ARCADE SYSTEM</span></div>
+      <div class="board-wrap">
+        <canvas id="board" width="840" height="660" tabindex="0" aria-label="Snake board. WASD or arrows to move."></canvas>
+        <div id="slogan" class="slogan" aria-live="polite"><small>RULE OVERRIDE</small><strong></strong></div>
+        <div id="toast" class="toast" aria-live="polite"></div>
+        <div id="overlay" class="overlay">
+          <section id="titlePanel" class="panel title-panel">
+            <div class="eyebrow">INSERT YOUR OWN RULES</div>
+            <h1>SNAKE<br><span>OUT OF BOUNDS</span></h1>
+            <h2 id="titleZh">EIGHT RULES. ONE SNAKE.</h2>
+            <p class="intro" id="intro">Eat apples. Grow longer.<br>Give the classic rules a little twist.</p>
+            <div class="rule-preview" aria-hidden="true"><span>↔</span><span>✂</span><span>×2</span><span>⚡</span></div>
+            <button id="start" class="primary">START RUN <span>↗</span></button>
+            <label class="auto-option"><input type="checkbox" id="auto"><span id="autoLabel">Activate rules automatically after choosing</span></label>
+            <p class="small-print" id="titleHelp">WASD / arrows to move · Space to activate · Esc to pause</p>
+          </section>
+          <section id="draftPanel" class="panel draft-panel" hidden>
+            <div class="eyebrow" id="draftEyebrow">RULE DRAFT / TIME IS PAUSED</div>
+            <h2 id="draftTitle">Which rule will you bend?</h2>
+            <p id="draftSubtitle">Keep one. Your new rule replaces the old one.</p>
+            <div id="choices" class="choices"></div>
+            <small id="draftHelp">Press 1 / 2 to choose · Then Space to activate</small>
+          </section>
+          <section id="pausePanel" class="panel pause-panel" hidden>
+            <div class="eyebrow">SYSTEM ON HOLD</div>
+            <h2 id="pauseTitle">PAUSED</h2>
+            <div id="pauseHelp" class="control-list"></div>
+            <p id="pauseHint" class="pause-hint">Every 5 extra body segments raise your score multiplier.<br>A yellow warning precedes a choice of two new rules.</p>
+            <div class="pause-buttons"><button id="resume" class="primary">RESUME</button><button id="restartPause" class="secondary">NEW RUN</button></div>
+            <p class="credits" id="credits">Original procedural art & synthesized audio · AI-assisted<br>Full license and production notes: CREDITS.txt</p>
+          </section>
+          <section id="deathPanel" class="panel death-panel" hidden>
+            <div class="eyebrow" id="deathEyebrow">RUN TERMINATED</div>
+            <h2 id="deathTitle">The rules won this round.</h2>
+            <p id="deathReason"></p>
+            <div class="final-score"><span id="finalLabel">FINAL SCORE</span><strong id="finalScore">000000</strong><b id="newRecord" hidden>NEW RECORD</b></div>
+            <div class="final-stats"><span><small id="lengthLabel">MAX LENGTH</small><b id="finalLength">5</b></span><span><small id="timeLabel">SURVIVAL</small><b id="finalTime">00:00</b></span><span><small id="rulesLabel">RULES USED</small><b id="finalRules">0</b></span></div>
+            <button id="restart" class="primary">TRY AGAIN <span>↗</span></button>
+            <p class="small-print" id="restartHelp">Press R / Enter to restart instantly</p>
+          </section>
+        </div>
+      </div>
+      <div class="board-footer"><span id="footerLeft">EAT. GROW. BREAK THE RULES.</span><span id="footerRight">WASD ↗ SPACE ⚡</span></div>
+    </section>
+    <aside class="dashboard">
+      <div class="score-block"><span id="scoreLabel">SCORE</span><strong id="score">000000</strong><div class="score-meta"><span id="multiplier">×1 <small>MULT</small></span><span id="length">5 <small>LONG</small></span><span id="time">00:00</span></div></div>
+      <section class="rule-slot" id="ruleSlot"><div class="slot-heading"><span id="slotLabel">RULE OVERRIDE</span><span id="ruleBadge">EMPTY</span></div><div id="ruleSymbol" class="rule-symbol">?</div><h2 id="ruleName">WAITING FOR A RULE</h2><p id="ruleDescription">Eat a few apples.<br>Your first draft arrives in 8 seconds.</p><div class="rule-meter"><div id="activeBar"></div></div><button id="activate" class="activate" disabled><span id="activateLabel">SPACE · ACTIVATE RULE</span></button></section>
+      <section class="next-draft"><div><span id="nextLabel">NEXT RULE DRAFT</span><strong id="nextTime">08.0s</strong></div><div class="thin-meter"><div id="draftBar"></div></div></section>
+      <section class="energy"><div><span id="energyLabel">BOOST ENERGY</span><strong id="energyValue">0%</strong></div><div class="thin-meter"><div id="energyBar"></div></div><small id="energyHint">Devour your tail to charge · Hold Shift to boost</small></section>
+      <section class="legend"><div><i class="apple-dot"></i><span id="appleLegend">APPLE</span><b id="applePoints">+10 × MULT</b></div><div><i class="poison-dot"></i><span id="poisonLegend">POISON</span><b id="poisonPoints">DANGER</b></div><div><i class="rock-dot"></i><span id="rockLegend">ROCK</span><b id="rockPoints">DANGER</b></div></section>
+      <div class="key-hint" id="sideHelp"><kbd>W A S D</kbd> MOVE <kbd>R</kbd> RESTART<br><kbd>SPACE</kbd> RULE <kbd>ESC</kbd> PAUSE</div>
+    </aside>
+  </main>
+  <footer class="page-footer"><span id="bottomLabel">8 RULES / 1 SNAKE / NO LIMIT</span><span id="bottomCredit">ORIGINAL ART & AUDIO · AI-ASSISTED</span></footer>
+</div>
+<script src="model.js"></script>
+<script src="audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+SNAKE OUT OF BOUNDS / 不守规矩的贪吃蛇
+Credits, AI disclosure, and license
+
+Concept / 概念
+The requester supplied the game concept, temporary-rule design, two-choice progression, and eight rule ideas.
+游戏概念、临时规则设计、二选一成长方式与八种规则创意由用户提供。
+
+Implementation and art / 实现与画面
+Code, gameplay implementation, interface and release copy, procedural pixel-neon visuals, the geometric cover illustration, and sound synthesis were created with assistance from OpenAI Codex.
+代码、玩法实现、界面与发布文案、程序绘制的像素霓虹画面、几何宣传封面及音频合成由 OpenAI Codex 辅助生成。
+
+AI disclosure / AI 使用说明
+AI-generated or AI-assisted: HTML / CSS / JavaScript; native Windows code; game and cover geometry; interface and documentation; synthesized effects and original arcade ambience.
+AI 生成或辅助生成内容：HTML / CSS / JavaScript、Windows 程序代码、游戏与封面的几何画面、界面及文档、合成音效与原创街机氛围音。
+
+Audio uses original tones and generated noise through Web Audio in the browser and generated PCM/WAV in the native Windows program, with no recordings or external samples. The cover is generated from code with rasterized Windows system typography. The game uses system fonts. No font files, downloaded artwork, music packs, sound packs, or third-party game libraries are distributed.
+浏览器音频通过 Web Audio 合成，Windows 原生程序通过生成 PCM/WAV 合成原创音调与噪声，不使用录音或外部样本。封面由代码绘制，Windows 系统字体被绘制成图片；游戏文字使用系统字体。不分发字体文件、下载的图片、音乐包、音效包或第三方游戏程序库。
+
+itch.io is the publishing platform name; the game is not an official itch.io product.
+itch.io 是发布平台名称，本游戏不是其官方产品。
+
+Project license / 项目许可
+--------------------------
+The generated source, procedural game and cover visuals, sound synthesis code, and accompanying documentation are distributed under the MIT License below. The license does not grant rights to third-party names or trademarks.
+生成的源码、程序绘制的游戏及封面画面、音频合成代码与文档按以下 MIT 许可分发；此许可不授予第三方名称或商标的权利。
+
+MIT License
+
+Copyright (c) 2026 Snake Out of Bounds contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

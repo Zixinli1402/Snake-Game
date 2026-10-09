@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d16">
+  <meta name="description" content="Snake Out of Bounds — an endless arcade snake game with eight temporary rule mutations.">
+  <title>Snake Out of Bounds</title>
+  <style>
+:root{color-scheme:dark;--bg:#080d16;--panel:#0d1420;--line:#243441;--muted:#77928f;--ink:#deeee9;--green:#89ff9d;--accent:#89ff9d;--purple:#d48aff;--yellow:#ffe783}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Consolas,"Courier New","Microsoft YaHei",monospace;font-size:14px;background-image:radial-gradient(ellipse at 50% 0,#14262a 0,transparent 55%)}button,a,input{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer;transition:background .15s,transform .15s,border-color .15s}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--yellow);outline-offset:4px}button:active{transform:translateY(2px)}button:disabled{cursor:default;opacity:.38;transform:none}button:hover:not(:disabled){filter:brightness(1.15)}[hidden]{display:none!important}.cabinet{max-width:1240px;margin:auto;padding:0 24px}.topbar{height:92px;display:flex;align-items:center;gap:32px}.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;margin-right:auto}.brand-icon{width:38px;height:38px;display:grid;place-content:center;border:2px solid var(--green);color:var(--green);font-size:30px;font-weight:bold;box-shadow:4px 4px 0 #274738}.brand b{font-size:20px;letter-spacing:1px}.brand-small{font-size:13px;color:var(--green);letter-spacing:0}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:2px;margin-top:5px}.record{text-align:right}.record span{display:block;font-size:10px;color:var(--muted);letter-spacing:2px}.record strong{color:var(--yellow);font-size:24px;font-weight:normal}.top-actions{display:flex;gap:8px}.icon-button{border:1px solid var(--line);background:#101923;color:var(--ink);width:38px;height:38px;font-weight:bold}.arena{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}.board-shell{border:1px solid var(--line);box-shadow:0 0 50px #0008;min-width:0;background:#090f17}.board-status,.board-footer{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;font-size:10px;letter-spacing:1px;color:var(--muted);height:35px}.board-status{border-bottom:1px solid var(--line)}.board-status span:first-child{display:flex;align-items:center;gap:7px}.board-status b{color:var(--accent);font-weight:normal}.board-status i{width:5px;height:5px;background:var(--accent);box-shadow:0 0 8px var(--accent)}.board-footer{border-top:1px solid var(--line);font-size:9px}.board-wrap{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:28/22}canvas{display:block;width:100%;height:100%;image-rendering:pixelated;outline:none}.board-wrap:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,#0002 3px 4px);opacity:.28;z-index:3}.overlay{position:absolute;inset:0;display:grid;place-items:center;background:#060b14bd;backdrop-filter:blur(3px);z-index:5;padding:24px}.panel{max-width:560px;width:100%;text-align:center}.eyebrow{color:var(--green);font-size:10px;letter-spacing:3px;margin-bottom:16px}.title-panel h1{font-size:58px;line-height:.88;letter-spacing:2px;margin:0;text-shadow:3px 3px 0 #1b4639}.title-panel h1 span{display:block;color:var(--green);font-size:29px;letter-spacing:0;line-height:1.5}.title-panel h2{font-size:18px;font-weight:normal;color:#aac2b9;margin:8px 0 16px;letter-spacing:3px}.intro{line-height:1.9;font-size:13px;color:#94ada8;margin:14px 0}.rule-preview{display:flex;justify-content:center;gap:12px;margin:20px 0}.rule-preview span{display:grid;place-items:center;width:42px;height:42px;background:#14232b;border:1px solid #325143;font-size:21px;color:var(--green);box-shadow:3px 3px 0 #020811}.rule-preview span:nth-child(2){color:var(--purple);border-color:#51415f}.rule-preview span:nth-child(3){color:#ff8b92;border-color:#5d393e}.rule-preview span:nth-child(4){color:var(--yellow);border-color:#57513e}.primary{border:0;background:var(--green);color:#0a2515;min-height:44px;padding:12px 26px;font-weight:bold;box-shadow:4px 4px 0 #263e32}.primary span{margin-left:35px}.title-panel .primary,.death-panel .primary{min-width:240px}.auto-option{display:flex;align-items:center;justify-content:center;gap:9px;font-size:11px;color:var(--muted);margin-top:21px;cursor:pointer}.auto-option input{accent-color:var(--green);width:14px;height:14px}.small-print{font-size:10px;color:#78928a;margin-top:20px;line-height:1.7}.dashboard{display:flex;flex-direction:column;gap:14px}.score-block{padding:18px 18px 15px;border:1px solid var(--line);background:linear-gradient(135deg,#152b25,#101b20)}.score-block>span{color:var(--muted);font-size:10px;letter-spacing:2px}.score-block>strong{display:block;font-weight:normal;color:var(--green);font-size:43px;letter-spacing:1px;line-height:1.3}.score-meta{display:flex;align-items:center;justify-content:space-between;margin-top:9px;font-size:16px}.score-meta small{font-size:9px;color:var(--muted)}.score-meta>span:last-child{font-size:12px;color:var(--muted)}.rule-slot{padding:16px 18px 14px;border:1px solid var(--line);background:var(--panel);min-height:246px}.slot-heading{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:1px}.slot-heading span:last-child{color:var(--accent);font-size:9px}.rule-symbol{width:42px;height:42px;font-size:24px;display:grid;place-items:center;color:var(--accent);border:1px solid #395447;margin:18px 0 12px;box-shadow:3px 3px 0 #03090f;background:#122020}.rule-slot h2{font-size:18px;color:var(--accent);font-weight:normal;margin:0 0 9px}.rule-slot p{line-height:1.65;color:#819a95;font-size:11px;min-height:40px;margin:0 0 14px}.rule-meter,.thin-meter{height:4px;background:#24313a;overflow:hidden}.rule-meter>div{height:100%;width:0;background:var(--accent);transition:width .06s linear}.activate{display:block;width:100%;margin-top:11px;border:1px solid #425c50;background:#172c22;padding:9px 3px;font-size:10px;color:var(--green);letter-spacing:1px}.next-draft,.energy{padding:0 2px}.next-draft>div:first-child,.energy>div:first-child{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.next-draft span,.energy span{color:#90aaa0;font-size:11px}.next-draft strong,.energy strong{font-size:12px;color:var(--green);font-weight:normal}.thin-meter{height:3px}.thin-meter div{height:100%;background:var(--yellow);width:0;transition:width .08s linear}.energy .thin-meter div{background:#87d7ff}.energy small{display:block;font-size:9px;color:#657f79;margin-top:8px}.legend{border-top:1px solid var(--line);padding-top:11px;display:grid;gap:9px}.legend>div{display:flex;align-items:center;font-size:10px;color:#819c94;gap:9px}.legend b{margin-left:auto;color:#b3c8bd;font-size:9px;font-weight:normal}.legend i{width:9px;height:9px;display:inline-block}.apple-dot{background:#fa6d80;box-shadow:2px -2px #a5ef99}.poison-dot{background:var(--purple);box-shadow:inset 3px 3px #5f3889}.rock-dot{background:#708c8a;border:2px solid #293d48}.key-hint{line-height:2;font-size:9px;color:#6c8a81}.key-hint kbd{font:inherit;border:1px solid #30463c;padding:2px 4px;color:#a4bfb1;background:#101c1b}.page-footer{display:flex;justify-content:space-between;font-size:9px;color:#48675c;padding:14px 0 18px;letter-spacing:1px}.draft-panel h2,.pause-panel h2,.death-panel h2{font-size:28px;margin:0 0 15px;letter-spacing:1px;font-weight:normal}.draft-panel>p,.death-panel>p{color:#809a93;font-size:12px;line-height:1.7;margin:0 0 24px}.draft-panel .eyebrow{color:var(--yellow)}.choices{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:23px}.choice{display:flex;flex-direction:column;align-items:center;min-height:214px;padding:20px 12px;background:#131e29;border:1px solid #3e5559;color:var(--ink);box-shadow:4px 4px 0 #02080d;position:relative}.choice:hover{border-color:var(--card-color);background:#1b2c32}.choice-number{position:absolute;top:9px;left:10px;font-size:10px;color:#6b8e82}.choice-symbol{font-size:34px;color:var(--card-color);margin:15px 0}.choice b{font-size:16px;font-weight:normal;color:var(--card-color);margin-bottom:14px}.choice p{font-size:11px;color:#8da89d;line-height:1.7;margin:0;flex:1}.choice small{margin-top:18px;font-size:9px;letter-spacing:1px;color:#bed4c8}.draft-panel>small{color:#719389;font-size:10px}.pause-panel{max-width:420px}.control-list{display:grid;grid-template-columns:1fr 1fr;text-align:left;background:#101b24;border:1px solid #2d4241;padding:16px;gap:13px 20px;color:#9ab4aa;font-size:11px}.control-list kbd{display:block;color:var(--green);font:inherit;font-size:12px;margin-bottom:4px}.pause-hint{font-size:11px;line-height:1.8;color:#789990;margin:18px 0}.pause-buttons{display:flex;gap:12px;justify-content:center}.secondary{border:1px solid #395349;background:#172623;color:#acc7b7;padding:10px 18px}.credits{color:#4f7266;font-size:9px;line-height:1.9;margin-top:24px}.final-score{position:relative;border-block:1px solid #29453b;padding:15px;margin-bottom:20px}.final-score span{display:block;color:#819f91;font-size:10px}.final-score strong{display:block;font-size:54px;font-weight:normal;color:var(--green)}.final-score b{color:var(--yellow);font-size:10px;letter-spacing:2px}.final-stats{display:flex;justify-content:space-around;margin-bottom:30px}.final-stats small{display:block;font-size:10px;color:#789d8c;margin-bottom:8px}.final-stats b{color:#ceded3;font-size:20px;font-weight:normal}.slogan{position:absolute;z-index:4;left:0;right:0;top:42%;text-align:center;pointer-events:none;opacity:0;background:#160d2cd9;padding:18px 9px;border-block:1px solid #b975d688;transform:translateY(8px);transition:opacity .15s,transform .15s}.slogan.show{opacity:1;transform:none}.slogan small{display:block;font-size:9px;letter-spacing:4px;color:#dcb8f6;margin-bottom:9px}.slogan strong{font-size:28px;color:#f6d6ff;text-shadow:2px 2px #6544aa;line-height:1.2}.toast{position:absolute;z-index:4;bottom:20px;left:50%;transform:translateX(-50%);font-size:11px;background:#111f29eb;border:1px solid #4f7160;padding:9px 17px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}.cabinet.active{--accent:#d48aff}.cabinet.active .board-shell{border-color:#614876}.cabinet.active .rule-slot{border-color:#62477c;background:linear-gradient(135deg,#201a30,#101c23)}.cabinet.armed{--accent:#ffe783}.cabinet.armed .rule-slot{border-color:#74633e}.cabinet.warning .board-status i{animation:blink 1s steps(2,end) infinite}.cabinet.warning .next-draft strong{color:var(--yellow)}@keyframes blink{50%{opacity:.25}}@media(max-width:1000px){.cabinet{padding:0 16px}.arena{grid-template-columns:minmax(0,1fr) 240px;gap:12px}.score-block>strong{font-size:36px}.rule-slot{padding:13px;min-height:228px}.rule-slot p{font-size:10px}.title-panel h1{font-size:48px}.title-panel h1 span{font-size:24px}.overlay{padding:20px}.title-panel .intro{font-size:12px}.rule-preview{margin:14px 0}.small-print{margin-top:14px}.choice{min-height:190px}.draft-panel h2{font-size:23px}.choice b{font-size:14px}.choice p{font-size:10px}.slogan strong{font-size:23px}}@media(max-width:760px){.topbar{height:76px;gap:12px}.brand-small{display:block;font-size:11px}.brand b{font-size:17px}.brand small{display:none}.record strong{font-size:18px}.record span{font-size:8px}.top-actions{gap:4px}.icon-button{width:32px;height:32px}.arena{grid-template-columns:1fr}.dashboard{display:grid;grid-template-columns:1fr 1fr;gap:12px}.score-block{grid-column:1;padding:14px}.rule-slot{grid-column:2;grid-row:1/4;min-height:0}.energy,.next-draft{grid-column:1}.legend,.key-hint{display:none}.board-status #coordinates{font-size:8px}.board-footer{font-size:8px}.overlay{padding:15px}.title-panel h1{font-size:44px}.title-panel h1 span{font-size:21px}.title-panel h2{font-size:14px;margin:2px 0 8px}.title-panel .intro{font-size:11px;margin:8px 0}.rule-preview{margin:10px 0}.rule-preview span{height:28px;width:28px;font-size:17px}.primary{min-height:38px;padding:9px 18px}.auto-option{margin-top:13px;font-size:10px}.small-print{font-size:8px;margin:10px 0 0}.eyebrow{font-size:8px;margin-bottom:12px}.draft-panel h2,.pause-panel h2,.death-panel h2{font-size:21px;margin-bottom:10px}.draft-panel>p,.death-panel>p{font-size:10px;margin-bottom:14px}.choices{gap:10px;margin-bottom:14px}.choice{min-height:166px;padding:14px 8px}.choice-symbol{font-size:24px;margin:10px 0}.choice b{font-size:12px;margin-bottom:10px}.choice p{font-size:9px}.choice small{margin-top:10px}.control-list{padding:10px;gap:8px;font-size:9px}.control-list kbd{font-size:10px}.pause-hint{font-size:9px;margin:12px 0}.credits{margin:13px 0 0;font-size:8px}.final-score{padding:9px;margin-bottom:12px}.final-score strong{font-size:38px}.final-stats{margin-bottom:15px}.final-stats b{font-size:17px}.page-footer{font-size:7px}.slogan strong{font-size:19px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.board-wrap:after{display:none}}
+@media(min-width:761px){.cabinet{max-width:min(1240px,calc((100vh - 198px)*28/22 + 348px))}}
+.overlay{overflow:auto;align-items:safe center}@media(min-width:761px) and (max-height:800px){.key-hint{display:none}}
+.icon-button{padding:0;white-space:nowrap}.rule-preview span:last-child{font-size:17px}
+
+</style>
+</head>
+<body>
+<div class="cabinet" id="cabinet">
+  <header class="topbar">
+    <a class="brand" href="#" id="home" aria-label="Title screen"><span class="brand-icon">↗</span><span><b>SNAKE<span class="brand-small"> OUT OF BOUNDS</span></b><small id="brandSub">EAT. GROW. BREAK THE RULES.</small></span></a>
+    <div class="record"><span id="bestLabel">HIGH SCORE</span><strong id="best">000000</strong></div>
+    <div class="top-actions"><button id="language" class="icon-button" aria-label="切换至中文">中文</button><button id="sound" class="icon-button" aria-label="Mute sound">♪</button><button id="pause" class="icon-button" aria-label="Pause">Ⅱ</button></div>
+  </header>
+  <main class="arena">
+    <section class="board-shell" aria-label="Game board">
+      <div class="board-status"><span><i id="statusDot"></i><b id="status">AWAITING PLAYER</b></span><span id="coordinates">28 × 22 / ARCADE SYSTEM</span></div>
+      <div class="board-wrap">
+        <canvas id="board" width="840" height="660" tabindex="0" aria-label="Snake board. WASD or arrows to move."></canvas>
+        <div id="slogan" class="slogan" aria-live="polite"><small>RULE OVERRIDE</small><strong></strong></div>
+        <div id="toast" class="toast" aria-live="polite"></div>
+        <div id="overlay" class="overlay">
+          <section id="titlePanel" class="panel title-panel">
+            <div class="eyebrow">INSERT YOUR OWN RULES</div>
+            <h1>SNAKE<br><span>OUT OF BOUNDS</span></h1>
+            <h2 id="titleZh">EIGHT RULES. ONE SNAKE.</h2>
+            <p class="intro" id="intro">Eat apples. Grow longer.<br>Give the classic rules a little twist.</p>
+            <div class="rule-preview" aria-hidden="true"><span>↔</span><span>✂</span><span>×2</span><span>⚡</span></div>
+            <button id="start" class="primary">START RUN <span>↗</span></button>
+            <label class="auto-option"><input type="checkbox" id="auto"><span id="autoLabel">Activate rules automatically after choosing</span></label>
+            <p class="small-print" id="titleHelp">WASD / arrows to move · Space to activate · Esc to pause</p>
+          </section>
+          <section id="draftPanel" class="panel draft-panel" hidden>
+            <div class="eyebrow" id="draftEyebrow">RULE DRAFT / TIME IS PAUSED</div>
+            <h2 id="draftTitle">Which rule will you bend?</h2>
+            <p id="draftSubtitle">Keep one. Your new rule replaces the old one.</p>
+            <div id="choices" class="choices"></div>
+            <small id="draftHelp">Press 1 / 2 to choose · Then Space to activate</small>
+          </section>
+          <section id="pausePanel" class="panel pause-panel" hidden>
+            <div class="eyebrow">SYSTEM ON HOLD</div>
+            <h2 id="pauseTitle">PAUSED</h2>
+            <div id="pauseHelp" class="control-list"></div>
+            <p id="pauseHint" class="pause-hint">Every 5 extra body segments raise your score multiplier.<br>A yellow warning precedes a choice of two new rules.</p>
+            <div class="pause-buttons"><button id="resume" class="primary">RESUME</button><button id="restartPause" class="secondary">NEW RUN</button></div>
+            <p class="credits" id="credits">Original procedural art & synthesized audio · AI-assisted<br>Full license and production notes: CREDITS.txt</p>
+          </section>
+          <section id="deathPanel" class="panel death-panel" hidden>
+            <div class="eyebrow" id="deathEyebrow">RUN TERMINATED</div>
+            <h2 id="deathTitle">The rules won this round.</h2>
+            <p id="deathReason"></p>
+            <div class="final-score"><span id="finalLabel">FINAL SCORE</span><strong id="finalScore">000000</strong><b id="newRecord" hidden>NEW RECORD</b></div>
+            <div class="final-stats"><span><small id="lengthLabel">MAX LENGTH</small><b id="finalLength">5</b></span><span><small id="timeLabel">SURVIVAL</small><b id="finalTime">00:00</b></span><span><small id="rulesLabel">RULES USED</small><b id="finalRules">0</b></span></div>
+            <button id="restart" class="primary">TRY AGAIN <span>↗</span></button>
+            <p class="small-print" id="restartHelp">Press R / Enter to restart instantly</p>
+          </section>
+        </div>
+      </div>
+      <div class="board-footer"><span id="footerLeft">EAT. GROW. BREAK THE RULES.</span><span id="footerRight">WASD ↗ SPACE ⚡</span></div>
+    </section>
+    <aside class="dashboard">
+      <div class="score-block"><span id="scoreLabel">SCORE</span><strong id="score">000000</strong><div class="score-meta"><span id="multiplier">×1 <small>MULT</small></span><span id="length">5 <small>LONG</small></span><span id="time">00:00</span></div></div>
+      <section class="rule-slot" id="ruleSlot"><div class="slot-heading"><span id="slotLabel">RULE OVERRIDE</span><span id="ruleBadge">EMPTY</span></div><div id="ruleSymbol" class="rule-symbol">?</div><h2 id="ruleName">WAITING FOR A RULE</h2><p id="ruleDescription">Eat a few apples.<br>Your first draft arrives in 8 seconds.</p><div class="rule-meter"><div id="activeBar"></div></div><button id="activate" class="activate" disabled><span id="activateLabel">SPACE · ACTIVATE RULE</span></button></section>
+      <section class="next-draft"><div><span id="nextLabel">NEXT RULE DRAFT</span><strong id="nextTime">08.0s</strong></div><div class="thin-meter"><div id="draftBar"></div></div></section>
+      <section class="energy"><div><span id="energyLabel">BOOST ENERGY</span><strong id="energyValue">0%</strong></div><div class="thin-meter"><div id="energyBar"></div></div><small id="energyHint">Devour your tail to charge · Hold Shift to boost</small></section>
+      <section class="legend"><div><i class="apple-dot"></i><span id="appleLegend">APPLE</span><b id="applePoints">+10 × MULT</b></div><div><i class="poison-dot"></i><span id="poisonLegend">POISON</span><b id="poisonPoints">DANGER</b></div><div><i class="rock-dot"></i><span id="rockLegend">ROCK</span><b id="rockPoints">DANGER</b></div></section>
+      <div class="key-hint" id="sideHelp"><kbd>W A S D</kbd> MOVE <kbd>R</kbd> RESTART<br><kbd>SPACE</kbd> RULE <kbd>ESC</kbd> PAUSE</div>
+    </aside>
+  </main>
+  <footer class="page-footer"><span id="bottomLabel">8 RULES / 1 SNAKE / NO LIMIT</span><span id="bottomCredit">ORIGINAL ART & AUDIO · AI-ASSISTED</span></footer>
+</div>
+<script>
+/* Snake Out of Bounds — original pure simulation, MIT licensed. */
+(function (root, factory) {
+  'use strict';
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else { root.SnakeModel = api.SnakeModel; root.RULES = api.RULES; }
+})(typeof window !== 'undefined' ? window : globalThis, function () {
+  'use strict';
+  const RULES = [
+    { id: 'wrap', name: {zh:'穿墙', en:'WALL WALKER'}, slogan:{zh:'边界只是一种建议。',en:'Borders are suggestions.'}, description:{zh:'10 秒内穿过四周边界，从另一侧出现。身体、毒果和岩石仍然危险。',en:'Wrap through board edges for 10 seconds. Your body, poison and rocks remain dangerous.'}, color:'#59cfff' },
+    { id: 'cut', name: {zh:'自切', en:'CUT THE TAIL'}, slogan:{zh:'舍掉过去，换一条生路。',en:'Leave the past behind.'}, description:{zh:'撞到身体时，从撞击段到尾巴切断；每失去一节获得 2 分 × 切断前倍率。',en:'A body collision cuts off the struck segment and the tail. Earn 2 points per removed segment times your pre-cut multiplier.'}, color:'#ff79bd' },
+    { id: 'antidote', name: {zh:'毒即是食', en:'ANTIDOTE'}, slogan:{zh:'把坏消息吃下去。',en:'Swallow the bad news.'}, description:{zh:'毒果变成食物：安全吃掉、长一节，获得 20 分 × 倍率。',en:'Poison becomes safe food: grow one segment and earn 20 points times your multiplier.'}, color:'#a1f477' },
+    { id: 'devour', name: {zh:'吞尾加速', en:'TAIL BURNER'}, slogan:{zh:'用身体为速度加油。',en:'Fuel your speed with yourself.'}, description:{zh:'激活及再次按空格时吞掉一节尾巴，增加 30 能量（至少留 3 节）。按 Shift 消耗能量加速。',en:'Activation and further Space presses consume one tail segment for 30 energy, keeping at least 3 segments. Hold Shift to spend energy on speed.'}, color:'#ffa95f' },
+    { id: 'velocity', name: {zh:'疾速穿石', en:'GHOST SPRINT'}, slogan:{zh:'快到障碍来不及阻挡。',en:'Too fast for obstacles.'}, description:{zh:'自动高速前进；穿过并消除岩石，每块获得 4 分 × 倍率。毒果和边界仍致命。',en:'Move automatically at high speed. Break through rocks for 4 points times your multiplier. Poison and edges remain deadly.'}, color:'#bd98ff' },
+    { id: 'invert', name: {zh:'反转价值', en:'VALUE FLIP'}, slogan:{zh:'好坏，由你重新定义。',en:'Redefine good and bad.'}, description:{zh:'苹果长身但不加分；毒果安全、长身并加 20 分 × 倍率；岩石安全、消除并加 12 分 × 倍率。',en:'Apples grow you but score zero. Poison safely grows you for 20 points times your multiplier. Rocks break safely for 12 points times your multiplier.'}, color:'#ffe177' },
+    { id: 'hunt', name: {zh:'食物来找你', en:'FOOD HUNT'}, slogan:{zh:'这次，轮到食物追你。',en:'Let the food chase you.'}, description:{zh:'每 0.65 秒，苹果向蛇头移动一格，避开身体、岩石、毒果和其他苹果。',en:'Every 0.65 seconds apples move one cell toward your head, avoiding your body, rocks, poison and other apples.'}, color:'#67eccb' },
+    { id: 'relative', name: {zh:'蛇在中心', en:'CENTER STAGE'}, slogan:{zh:'不必移动自己，让世界移动。',en:'Move the world around you.'}, description:{zh:'画面以蛇头为中心移动，边界循环相连。逻辑中蛇仍在移动；身体、岩石和毒果仍危险。',en:'The view follows your centered head and world edges wrap. Your snake still moves logically; body, rocks and poison remain dangerous.'}, color:'#80aeff' }
+  ];
+  const IDS = RULES.map(r => r.id);
+  const same = (a, b) => a.x === b.x && a.y === b.y;
+  const copy = a => ({x:a.x, y:a.y});
+  const clone = value => JSON.parse(JSON.stringify(value));
+  const mod = (n, d) => ((n % d) + d) % d;
+
+  class SnakeModel {
+    constructor(seed) {
+      this.cols = 28; this.rows = 22;
+      this._initialSeed = seed === undefined ? Date.now() >>> 0 : seed;
+      this.reset(this._initialSeed);
+    }
+    reset(seed) {
+      if (seed !== undefined) this._initialSeed = seed;
+      this._randomSource = typeof this._initialSeed === 'function' ? this._initialSeed : null;
+      this._seed = this._randomSource ? 1 : Number(this._initialSeed) >>> 0;
+      this.snake = Array.from({length:5}, (_, i) => ({x:14-i, y:11}));
+      this.dir = {x:1,y:0}; this._turnQueue = [];
+      this.apples = []; this.poisons = []; this.obstacles = [];
+      this.score = 0; this.maxLength = 5; this.elapsed = 0;
+      this.alive = true; this.deathReason = null;
+      this.currentRule = null; this.activeRemaining = 0; this.ready = false;
+      this.energy = 0; this.choiceDue = 8; this.offered = null; this.events = [];
+      this._moveClock = 0; this._huntClock = 0; this._pendingGrowth = 0;
+      this._tailMemory = null;
+      const safeStart = p => p.x >= 8 && p.x <= 22 && p.y >= 8 && p.y <= 14;
+      for (let i=0;i<8;i++) this._spawn(this.obstacles, safeStart);
+      this.apples.push({x:18,y:11});
+      this._spawn(this.apples); this._spawn(this.apples);
+      this._spawn(this.poisons, safeStart); this._spawn(this.poisons, safeStart);
+      return this.snapshot();
+    }
+    _random() {
+      if (this._randomSource) {
+        const n = Number(this._randomSource());
+        return Number.isFinite(n) ? Math.max(0,Math.min(1-Number.EPSILON,n)) : 0;
+      }
+      this._seed = (Math.imul(1664525,this._seed)+1013904223) >>> 0;
+      return this._seed / 4294967296;
+    }
+    _occupied(p) {
+      return [this.snake,this.apples,this.poisons,this.obstacles].some(list => list.some(a=>same(a,p)));
+    }
+    _spawn(list, excluded) {
+      const cells = [];
+      for(let y=0;y<this.rows;y++) for(let x=0;x<this.cols;x++) {
+        const p={x,y}; if(!this._occupied(p) && !(excluded && excluded(p))) cells.push(p);
+      }
+      if(!cells.length) { this._end('complete'); return null; }
+      const cell=cells[Math.floor(this._random()*cells.length)]; list.push(cell); return cell;
+    }
+    _active(id) { return this.currentRule===id && this.activeRemaining>0; }
+    multiplier() { return Math.max(1,Math.min(8,1+Math.floor((this.snake.length-5)/5))); }
+    interval(boost) {
+      if(boost && this.energy>0) return .075;
+      if(this._active('velocity')) return .085;
+      return Math.max(.11,.16-this.score*.00015);
+    }
+    turn(dx,dy) {
+      if(!this.alive || this.offered || !((Math.abs(dx)===1 && dy===0)||(Math.abs(dy)===1 && dx===0))) return false;
+      const last=this._turnQueue.length ? this._turnQueue[this._turnQueue.length-1] : this.dir;
+      if((dx===last.x && dy===last.y)||(dx===-last.x && dy===-last.y)||this._turnQueue.length>=2) return false;
+      this._turnQueue.push({x:dx,y:dy}); return true;
+    }
+    _draft() {
+      const pool=IDS.filter(id=>id!==this.currentRule);
+      const first=pool.splice(Math.floor(this._random()*pool.length),1)[0];
+      const second=pool[Math.floor(this._random()*pool.length)];
+      this.offered=[first,second]; this.choiceDue=0;
+      this._turnQueue=[];
+      this.events.push({type:'draft',rule:null,offered:this.offered.slice()});
+    }
+    choose(id,options) {
+      if(!this.alive || !this.offered || !this.offered.includes(id) || !IDS.includes(id)) return false;
+      this.currentRule=id; this.activeRemaining=0; this.ready=true;
+      this.offered=null; this.choiceDue=18; this._huntClock=0;
+      this.events.push({type:'choose',rule:id});
+      if(options && options.autoActivate) this.activate();
+      return true;
+    }
+    activate() {
+      if(!this.alive || this.offered || !IDS.includes(this.currentRule)) return false;
+      if(this.activeRemaining>0) return this.currentRule==='devour' ? this._devour() : false;
+      if(!this.ready) return false;
+      this.ready=false; this.activeRemaining=10; this._huntClock=0;
+      this.events.push({type:'activate',rule:this.currentRule,...copy(this.snake[0])});
+      if(this.currentRule==='devour') this._devour();
+      return true;
+    }
+    _devour() {
+      if(this.snake.length<=3) return false;
+      const tail=this.snake.pop(); this._tailMemory=null;
+      const gain=Math.min(30,100-this.energy); this.energy+=gain;
+      this.events.push({type:'devour',rule:'devour',...copy(tail),amount:1});
+      this.events.push({type:'energy',rule:'devour',amount:gain});
+      return true;
+    }
+    _end(reason,position) {
+      if(!this.alive) return;
+      this.alive=false; this.deathReason=reason; this._turnQueue=[];
+      this.events.push({type:'die',reason,rule:this.activeRemaining>0?this.currentRule:null,...copy(position||this.snake[0])});
+    }
+    _consume(list,object,kind,reward,multiplier) {
+      const index=list.indexOf(object); if(index<0) return;
+      list.splice(index,1); const amount=reward*multiplier; this.score+=amount;
+      this.events.push({type:kind,...copy(object),amount,rule:this.activeRemaining>0?this.currentRule:null});
+      this._spawn(list);
+    }
+    _growTail() {
+      const n=this.snake.length, tail=this.snake[n-1], before=this.snake[n-2];
+      const candidates=[];
+      if(this._tailMemory) candidates.push(copy(this._tailMemory));
+      if(before) candidates.push({x:tail.x+Math.sign(tail.x-before.x),y:tail.y+Math.sign(tail.y-before.y)});
+      for(const d of [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]) candidates.push({x:tail.x+d.x,y:tail.y+d.y});
+      const wrap=this._active('wrap')||this._active('relative');
+      for(const raw of candidates) {
+        const p=wrap?{x:mod(raw.x,this.cols),y:mod(raw.y,this.rows)}:raw;
+        if(p.x<0||p.y<0||p.x>=this.cols||p.y>=this.rows||this._occupied(p)) continue;
+        const dx=Math.abs(p.x-tail.x),dy=Math.abs(p.y-tail.y);
+        if(!(dx+dy===1 || (wrap && ((dx===this.cols-1&&dy===0)||(dy===this.rows-1&&dx===0))))) continue;
+        this.snake.push(p); this._tailMemory=null; this.maxLength=Math.max(this.maxLength,this.snake.length); return true;
+      }
+      this._pendingGrowth++; return false;
+    }
+    _hunt() {
+      for(const apple of this.apples.slice()) {
+        if(!this.alive || !this.apples.includes(apple)) break;
+        const head=this.snake[0],dx=head.x-apple.x,dy=head.y-apple.y;
+        const horizontal={x:Math.sign(dx),y:0},vertical={x:0,y:Math.sign(dy)};
+        const steps=Math.abs(dx)>=Math.abs(dy)?[horizontal,vertical]:[vertical,horizontal];
+        for(const d of steps) {
+          if(!d.x&&!d.y) continue;
+          const p={x:apple.x+d.x,y:apple.y+d.y};
+          if(p.x<0||p.y<0||p.x>=this.cols||p.y>=this.rows) continue;
+          if(this.snake.slice(1).some(a=>same(a,p))||this.obstacles.some(a=>same(a,p))||this.poisons.some(a=>same(a,p))||this.apples.some(a=>a!==apple&&same(a,p))) continue;
+          apple.x=p.x;apple.y=p.y;break;
+        }
+        if(same(apple,this.snake[0])) {
+          const multiplier=this.multiplier(); this._growTail(); this._consume(this.apples,apple,'eat',10,multiplier);
+        }
+      }
+    }
+    _step() {
+      if(this._turnQueue.length) this.dir=this._turnQueue.shift();
+      const next={x:this.snake[0].x+this.dir.x,y:this.snake[0].y+this.dir.y};
+      if(this._active('wrap')||this._active('relative')) {next.x=mod(next.x,this.cols);next.y=mod(next.y,this.rows);}
+      else if(next.x<0||next.y<0||next.x>=this.cols||next.y>=this.rows) {this._end('wall',next);return;}
+      const multiplier=this.multiplier();
+      const apple=this.apples.find(a=>same(a,next));
+      const poison=this.poisons.find(a=>same(a,next));
+      const rock=this.obstacles.find(a=>same(a,next));
+      const safePoison=this._active('antidote')||this._active('invert');
+      if(poison&&!safePoison) {this._end('poison',next);return;}
+      if(rock && !this._active('velocity')&&!this._active('invert')) {this._end('rock',next);return;}
+      const growthCredits=Number(Boolean(apple))+Number(Boolean(poison&&safePoison))+this._pendingGrowth;
+      const growing=growthCredits>0;
+      const bodyIndex=this.snake.findIndex(a=>same(a,next));
+      const tailVacates=bodyIndex===this.snake.length-1&&!growing;
+      if(bodyIndex>=0&&!tailVacates) {
+        if(!this._active('cut')) {this._end('body',next);return;}
+        const removed=this.snake.length-bodyIndex;
+        this.snake=this.snake.slice(0,bodyIndex); this._tailMemory=null;
+        const amount=2*removed*multiplier;this.score+=amount;
+        this.events.push({type:'cut',...copy(next),amount,segments:removed,rule:'cut'});
+      }
+      this.snake.unshift(next);
+      if(!growing) this._tailMemory=this.snake.pop();
+      else {this._tailMemory=null;this._pendingGrowth=Math.max(0,growthCredits-1);}
+      this.maxLength=Math.max(this.maxLength,this.snake.length);
+      if(rock) {
+        this.obstacles.splice(this.obstacles.indexOf(rock),1);
+        const amount=(this._active('invert')?12:4)*multiplier;this.score+=amount;
+        this.events.push({type:'rock',...copy(rock),amount,rule:this.currentRule});
+      }
+      if(apple) this._consume(this.apples,apple,'eat',this._active('invert')?0:10,multiplier);
+      if(poison) this._consume(this.poisons,poison,'poison',20,multiplier);
+      this.events.push({type:'step',...copy(next),amount:this.snake.length,rule:this.activeRemaining>0?this.currentRule:null});
+      if(this.snake.length>=this.cols*this.rows) this._end('complete');
+    }
+    update(dt,input) {
+      if(!this.alive||this.offered) return;
+      let remaining=Math.max(0,Math.min(.25,Number(dt)||0));
+      const boosting=Boolean(input&&input.boost);let energySpent=0;
+      while(remaining>1e-9 && this.alive && !this.offered) {
+        if(this.choiceDue<=1e-9) {this._draft();break;}
+        const slice=Math.min(.01,remaining,this.choiceDue); remaining-=slice;
+        this.elapsed+=slice;this.choiceDue=Math.max(0,this.choiceDue-slice);
+        if(this.activeRemaining>0) {
+          this.activeRemaining=Math.max(0,this.activeRemaining-slice);
+          if(this.activeRemaining<=1e-9) {
+            this.activeRemaining=0;this._huntClock=0;
+            this.events.push({type:'expire',rule:this.currentRule});
+          }
+        }
+        const isBoosting=boosting&&this.energy>0;
+        const stepInterval=this.interval(isBoosting);
+        if(isBoosting) {const spent=Math.min(this.energy,25*slice);this.energy-=spent;energySpent+=spent;}
+        if(this._active('hunt')) {
+          this._huntClock+=slice;
+          if(this._huntClock+1e-9>=.65) {this._huntClock-=.65;this._hunt();}
+        }
+        this._moveClock+=slice;
+        if(this.alive && this._moveClock+1e-9>=stepInterval) {this._moveClock=Math.max(0,this._moveClock-stepInterval);this._step();}
+        if(this.alive && this.choiceDue<=1e-9) this._draft();
+      }
+      if(energySpent>0) this.events.push({type:'energy',amount:-energySpent,rule:this.activeRemaining>0?this.currentRule:null});
+    }
+    snapshot() {
+      return clone({cols:this.cols,rows:this.rows,snake:this.snake,dir:this.dir,apples:this.apples,poisons:this.poisons,obstacles:this.obstacles,
+        score:this.score,maxLength:this.maxLength,elapsed:this.elapsed,alive:this.alive,deathReason:this.deathReason,
+        currentRule:this.currentRule,activeRemaining:this.activeRemaining,ready:this.ready,energy:this.energy,choiceDue:this.choiceDue,
+        offered:this.offered,events:this.events});
+    }
+  }
+  return {SnakeModel,RULES};
+});
+
+</script>
+<script>
+/* Snake Out of Bounds — original AI-generated Web Audio synthesis.
+   No recordings, samples, or third-party assets. See CREDITS.txt for license. */
+(function () {
+  'use strict';
+
+  var context = null;
+  var master = null;
+  var ambience = null;
+  var ambientNodes = [];
+  var ambientTimer = null;
+  var suspendTimer = null;
+  var whiteNoise = null;
+  var muted = false;
+  var paused = false;
+  var unlocked = false;
+  var destroyed = false;
+  var lastStep = -Infinity;
+  var voiceCount = 0;
+  var MAX_VOICES = 24;
+
+  function disconnect(node) {
+    try { node.disconnect(); } catch (_) { /* Already released. */ }
+  }
+
+  function createNoise(seconds) {
+    var count = Math.ceil(context.sampleRate * seconds);
+    var buffer = context.createBuffer(1, count, context.sampleRate);
+    var data = buffer.getChannelData(0);
+    for (var i = 0; i < count; i += 1) data[i] = Math.random() * 2 - 1;
+    return buffer;
+  }
+
+  function buildGraph() {
+    var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass || destroyed) return false;
+    try {
+      context = new AudioContextClass();
+      master = context.createGain();
+      master.gain.value = 0;
+      var limiter = context.createDynamicsCompressor();
+      limiter.threshold.value = -18;
+      limiter.knee.value = 12;
+      limiter.ratio.value = 10;
+      limiter.attack.value = 0.004;
+      limiter.release.value = 0.18;
+      master.connect(limiter);
+      limiter.connect(context.destination);
+      whiteNoise = createNoise(4);
+
+      ambience = context.createGain();
+      ambience.gain.value = 0.34;
+      ambience.connect(master);
+
+      // Three quiet arcade layers: pulse bass, soft harmonic, filtered air.
+      var bass = context.createOscillator();
+      bass.type = 'square';
+      bass.frequency.value = 110;
+      var bassGain = context.createGain();
+      bassGain.gain.value = 0.014;
+      bass.connect(bassGain);
+      bassGain.connect(ambience);
+      bass.start();
+
+      var harmonic = context.createOscillator();
+      harmonic.type = 'triangle';
+      harmonic.frequency.value = 220;
+      var harmonicGain = context.createGain();
+      harmonicGain.gain.value = 0.012;
+      harmonic.connect(harmonicGain);
+      harmonicGain.connect(ambience);
+      harmonic.start();
+
+      var air = context.createBufferSource();
+      air.buffer = whiteNoise;
+      air.loop = true;
+      var airFilter = context.createBiquadFilter();
+      airFilter.type = 'bandpass';
+      airFilter.frequency.value = 780;
+      airFilter.Q.value = 0.8;
+      var airGain = context.createGain();
+      airGain.gain.value = 0.012;
+      air.connect(airFilter);
+      airFilter.connect(airGain);
+      airGain.connect(ambience);
+      air.start();
+
+      ambientNodes = [bass, bassGain, harmonic, harmonicGain, air, airFilter, airGain, limiter];
+      // Only three sustained sources exist. The short original pulse phrase is
+      // scheduled on the audio clock; pause never creates a backlog of notes.
+      ambientTimer = window.setInterval(function () {
+        if (!context || context.state !== 'running' || muted || paused) return;
+        var t = context.currentTime;
+        bassGain.gain.setTargetAtTime(0.011 + Math.sin(t * 0.19) * 0.003, t, 1.6);
+        harmonicGain.gain.setTargetAtTime(0.009 + Math.sin(t * 0.13 + 1.7) * 0.004, t, 1.8);
+        harmonic.detune.setTargetAtTime(Math.sin(t * 0.1) * 6, t, 1.6);
+        airFilter.frequency.setTargetAtTime(760 + Math.sin(t * 0.11) * 270, t, 2);
+        [220, 293.66, 329.63, 440].forEach(function (f, i) {
+          tone(f, 0.095, 'square', 0.015, i * 0.175);
+        });
+      }, 1400);
+      return true;
+    } catch (_) {
+      if (context) {
+        try { context.close(); } catch (__) { /* Audio remains optional. */ }
+      }
+      context = null;
+      master = null;
+      return false;
+    }
+  }
+
+  function synchronize() {
+    if (!context || !master || destroyed) return;
+    if (suspendTimer !== null) {
+      window.clearTimeout(suspendTimer);
+      suspendTimer = null;
+    }
+    var shouldPlay = unlocked && !muted && !paused;
+    var t = context.currentTime;
+    master.gain.cancelScheduledValues(t);
+    master.gain.setTargetAtTime(shouldPlay ? 0.24 : 0, t, 0.035);
+    if (shouldPlay) {
+      if (context.state === 'suspended' || context.state === 'interrupted') {
+        // Rejections are harmless on browsers that require another user gesture.
+        try { var result = context.resume(); if (result) result.catch(function () {}); } catch (_) {}
+      }
+    } else if (context.state === 'running') {
+      suspendTimer = window.setTimeout(function () {
+        suspendTimer = null;
+        if (context && !destroyed && (muted || paused || !unlocked)) {
+          try { var result = context.suspend(); if (result) result.catch(function () {}); } catch (_) {}
+        }
+      }, 160);
+    }
+  }
+
+  function init() {
+    if (destroyed) return false;
+    if (!context && !buildGraph()) return false;
+    unlocked = true;
+    synchronize();
+    return true;
+  }
+
+  function tone(frequency, duration, type, volume, delay, endFrequency) {
+    if (!context || voiceCount >= MAX_VOICES) return;
+    var start = context.currentTime + (delay || 0);
+    var osc = context.createOscillator();
+    var gain = context.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(Math.max(20, frequency), start);
+    if (endFrequency) osc.frequency.exponentialRampToValueAtTime(Math.max(20, endFrequency), start + duration);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(Math.max(0.0002, volume), start + Math.min(0.012, duration * 0.15));
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    osc.connect(gain);
+    gain.connect(master);
+    voiceCount += 1;
+    osc.onended = function () {
+      voiceCount = Math.max(0, voiceCount - 1);
+      disconnect(osc);
+      disconnect(gain);
+    };
+    osc.start(start);
+    osc.stop(start + duration + 0.025);
+  }
+
+  function noise(duration, volume, frequency, delay) {
+    if (!context || voiceCount >= MAX_VOICES) return;
+    var start = context.currentTime + (delay || 0);
+    var source = context.createBufferSource();
+    source.buffer = whiteNoise;
+    var filter = context.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = frequency;
+    var gain = context.createGain();
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(master);
+    voiceCount += 1;
+    source.onended = function () {
+      voiceCount = Math.max(0, voiceCount - 1);
+      disconnect(source);
+      disconnect(filter);
+      disconnect(gain);
+    };
+    source.start(start, Math.random() * 3);
+    source.stop(start + duration + 0.025);
+  }
+
+  function play(name) {
+    if (!context || !unlocked || muted || paused || destroyed || context.state !== 'running') return;
+    switch (name) {
+      case 'eat':
+        tone(587.33, 0.075, 'square', 0.11);
+        tone(880, 0.1, 'square', 0.085, 0.045);
+        break;
+      case 'cut':
+        noise(0.07, 0.14, 2000);
+        tone(990, 0.11, 'square', 0.1, 0, 280);
+        break;
+      case 'poison':
+        tone(415.3, 0.13, 'square', 0.12, 0, 104);
+        noise(0.13, 0.12, 900, 0.04);
+        break;
+      case 'choose':
+        tone(440, 0.055, 'square', 0.1);
+        tone(659.25, 0.13, 'square', 0.09, 0.045);
+        break;
+      case 'draft':
+        [329.63, 440, 659.25].forEach(function (f, i) { tone(f, 0.13, 'square', 0.08, i * 0.07); });
+        break;
+      case 'activate':
+        tone(220, 0.25, 'square', 0.11, 0, 880);
+        tone(440, 0.3, 'triangle', 0.14, 0.08, 1320);
+        noise(0.09, 0.075, 2300, 0.1);
+        break;
+      case 'expire':
+        tone(659.25, 0.13, 'square', 0.07);
+        tone(329.63, 0.18, 'triangle', 0.1, 0.095);
+        break;
+      case 'devour':
+        tone(110, 0.085, 'square', 0.17, 0, 440);
+        tone(880, 0.12, 'triangle', 0.09, 0.06);
+        noise(0.05, 0.07, 1600);
+        break;
+      case 'die':
+        [440, 329.63, 220, 110].forEach(function (f, i) { tone(f, 0.22, 'square', 0.12, i * 0.14, f * 0.8); });
+        noise(0.3, 0.1, 650, 0.16);
+        break;
+      case 'rock':
+        noise(0.07, 0.14, 700);
+        tone(100, 0.09, 'triangle', 0.17, 0, 55);
+        break;
+      case 'energy':
+        tone(523.25, 0.12, 'triangle', 0.1, 0, 1046.5);
+        break;
+      case 'step':
+        if (context.currentTime - lastStep < 0.115) return;
+        lastStep = context.currentTime;
+        tone(96 + Math.random() * 12, 0.028, 'triangle', 0.035);
+        break;
+      default:
+        break;
+    }
+  }
+
+  function stop() {
+    destroyed = true;
+    if (ambientTimer !== null) window.clearInterval(ambientTimer);
+    if (suspendTimer !== null) window.clearTimeout(suspendTimer);
+    ambientNodes.forEach(function (node) {
+      if (typeof node.stop === 'function') { try { node.stop(); } catch (_) {} }
+      disconnect(node);
+    });
+    ambientNodes = [];
+    if (ambience) disconnect(ambience);
+    if (master) disconnect(master);
+    if (context) { try { var result = context.close(); if (result) result.catch(function () {}); } catch (_) {} }
+    context = null;
+  }
+
+  window.SNAKE_AUDIO = Object.freeze({
+    init: init,
+    setMuted: function (value) { muted = Boolean(value); synchronize(); },
+    setPaused: function (value) { paused = Boolean(value); synchronize(); },
+    play: play,
+    stop: stop
+  });
+}());
+
+</script>
+<script>
+/* Snake Out of Bounds — original canvas arcade presentation. MIT license. */
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const canvas = $('board'), ctx = canvas.getContext('2d');
+  const audio = window.SNAKE_AUDIO;
+  const ruleMap = Object.fromEntries(RULES.map(rule => [rule.id, rule]));
+  const symbols = {wrap:'↔',cut:'✂',antidote:'×2',devour:'⚡',velocity:'≫',invert:'⇅',hunt:'◎',relative:'⊕'};
+  const text = {
+    zh: {
+      brandSub:'不守规矩的贪吃蛇', bestLabel:'最高分', scoreLabel:'当前得分', titleZh:'不守规矩的贪吃蛇',
+      intro:'吃掉苹果，拉长身体。<br>然后，让经典规则为你破例。', start:'开始游戏 <span>↗</span>', autoLabel:'选中规则后自动激活',
+      titleHelp:'WASD / 方向键移动 · Space 激活 · Esc 暂停', draftEyebrow:'规则选择 / 时间已暂停', draftTitle:'这次，打破哪条规则？',
+      draftSubtitle:'只保留一条。新规则会替换旧规则。', draftHelp:'按 1 / 2 选择 · 选择后按 Space 激活',
+      draftAuto:'按 1 / 2 选择 · 选中即激活 10 秒', pauseTitle:'暂停', resume:'继续', restartPause:'重新开始',
+      pauseHint:'吃苹果增长，每多 5 节身体提高得分倍率。<br>黄色预警后，从两条新规则中选择一条。',
+      credits:'原创程序绘制、合成音频 · AI 辅助制作<br>完整授权与制作记录见 CREDITS.txt',
+      deathTitle:'规则赢了这一局', deathComplete:'棋盘归你了！', finalLabel:'本局得分', lengthLabel:'最高长度', timeLabel:'存活时间', rulesLabel:'激活规则',
+      restart:'再来一局 <span>↗</span>', restartHelp:'按 R / Enter 立即重开', slotLabel:'违规规则', nextLabel:'下次规则选择',
+      energyLabel:'冲刺能量', energyHint:'吞尾规则充能 · 按住 Shift 冲刺', appleLegend:'苹果', poisonLegend:'毒苹果', rockLegend:'障碍',
+      sideHelp:'<kbd>W A S D</kbd> 移动 <kbd>R</kbd> 重开<br><kbd>SPACE</kbd> 激活 <kbd>ESC</kbd> 暂停',
+      bottomCredit:'原创视觉与音频 · AI 辅助制作', standard:'标准规则', titleStatus:'等待玩家', draftStatus:'即将改写规则', pauseStatus:'系统暂停', deadStatus:'本局结束',
+      active:'规则已激活', armed:'规则已准备', empty:'等待规则选择', emptyDesc:'先吃几颗苹果。<br>第一轮选择将在 8 秒后出现。',
+      activate:'SPACE · 激活规则', exhausted:'规则已耗尽 · 等待下一轮', activeTimer:'生效中', devour:'SPACE · 吞尾充能',
+      minTail:'至少保留 3 节身体', readyHint:'按 Space 激活：', expires:'违规结束，恢复标准规则', noRule:'先等待规则选择',
+      inactive:'本轮激活机会已用完', mult:'倍率', length:'长度', danger:'危险', safe:'奖励', pick:'选择 /',
+      reasons:{wall:'撞到了边界。穿墙规则可以改变这一点。',body:'撞到了自己的身体。自切规则可以留一条生路。',rock:'撞到了障碍。疾速或反转规则可以穿过它。',poison:'吃到了毒苹果。毒即是食或反转规则可以让它安全。',complete:'你填满了可用空间，完成了这一局。'},
+      controls:[['WASD / ↑ ↓ ← →','移动方向'],['SPACE','激活 / 吞尾'],['1 / 2','选择规则'],['SHIFT','消耗能量冲刺'],['R','立即重新开始'],['ESC / P','暂停 / 继续'],['L','切换语言'],['M','声音开关']],
+      slogans:{wrap:'边界不会杀死你',cut:'身体可以剪掉',antidote:'毒苹果也是奖励',devour:'吞掉尾巴 · 加速前进',velocity:'速度让你穿过障碍',invert:'危险的东西才值钱',hunt:'食物正在追逐你',relative:'蛇不动 · 世界移动'},
+      soundOn:'关闭声音',soundOff:'打开声音',pause:'暂停',home:'标题画面'
+    },
+    en: {
+      brandSub:'EAT. GROW. BREAK THE RULES.', bestLabel:'HIGH SCORE', scoreLabel:'SCORE', titleZh:'EIGHT RULES. ONE SNAKE.',
+      intro:'Eat apples. Grow longer.<br>Give the classic rules a little twist.', start:'START RUN <span>↗</span>', autoLabel:'Activate rules automatically after choosing',
+      titleHelp:'WASD / arrows to move · Space to activate · Esc to pause', draftEyebrow:'RULE DRAFT / TIME IS PAUSED', draftTitle:'Which rule will you bend?',
+      draftSubtitle:'Keep one. Your new rule replaces the old one.', draftHelp:'Press 1 / 2 to choose · Then Space to activate',
+      draftAuto:'Press 1 / 2 to choose · Activates immediately for 10s', pauseTitle:'PAUSED', resume:'RESUME', restartPause:'NEW RUN',
+      pauseHint:'Every 5 extra body segments raise your score multiplier.<br>A yellow warning precedes a choice of two new rules.',
+      credits:'Original procedural art & synthesized audio · AI-assisted<br>Full license and production notes: CREDITS.txt',
+      deathTitle:'The rules won this round.', deathComplete:'THE BOARD IS YOURS!', finalLabel:'FINAL SCORE', lengthLabel:'MAX LENGTH', timeLabel:'SURVIVAL', rulesLabel:'RULES USED',
+      restart:'TRY AGAIN <span>↗</span>', restartHelp:'Press R / Enter to restart instantly', slotLabel:'RULE OVERRIDE', nextLabel:'NEXT RULE DRAFT',
+      energyLabel:'BOOST ENERGY', energyHint:'Devour your tail to charge · Hold Shift to boost', appleLegend:'APPLE', poisonLegend:'POISON', rockLegend:'ROCK',
+      sideHelp:'<kbd>W A S D</kbd> MOVE <kbd>R</kbd> RESTART<br><kbd>SPACE</kbd> RULE <kbd>ESC</kbd> PAUSE',
+      bottomCredit:'ORIGINAL ART & AUDIO · AI-ASSISTED', standard:'STANDARD RULES', titleStatus:'AWAITING PLAYER', draftStatus:'RULES WILL CHANGE', pauseStatus:'SYSTEM PAUSED', deadStatus:'RUN ENDED',
+      active:'OVERRIDE ACTIVE', armed:'OVERRIDE READY', empty:'WAITING FOR A RULE', emptyDesc:'Eat a few apples.<br>Your first draft arrives in 8 seconds.',
+      activate:'SPACE · ACTIVATE RULE', exhausted:'USED UP · WAIT FOR NEXT DRAFT', activeTimer:'ACTIVE', devour:'SPACE · DEVOUR TAIL',
+      minTail:'Keep at least 3 body segments', readyHint:'Press Space to activate: ', expires:'Override expired. Standard rules restored.', noRule:'Wait for the first rule draft',
+      inactive:'This rule has already been used', mult:'MULT', length:'LONG', danger:'DANGER', safe:'REWARD', pick:'CHOOSE /',
+      reasons:{wall:'The edge ended your run. Wall Walker could bend that rule.',body:'You hit your body. Cut the Tail could save you.',rock:'A rock stopped you. Ghost Sprint or Value Flip could help.',poison:'Poison ended your run. Antidote or Value Flip could make it safe.',complete:'You filled the available space. The board is yours.'},
+      controls:[['WASD / ↑ ↓ ← →','Move'],['SPACE','Activate / devour'],['1 / 2','Choose a rule'],['SHIFT','Spend energy to boost'],['R','Restart instantly'],['ESC / P','Pause / resume'],['L','Switch language'],['M','Toggle sound']],
+      slogans:{wrap:"WALLS DON'T KILL",cut:'CUT YOUR LOSSES',antidote:'POISON PAYS DOUBLE',devour:'EAT YOUR TAIL. FUEL YOUR SPEED.',velocity:'TOO FAST FOR ROCKS',invert:'DANGER IS WORTH MORE',hunt:'FOOD HUNTS YOU',relative:'STAY STILL. MOVE THE WORLD.'},
+      soundOn:'Mute sound',soundOff:'Enable sound',pause:'Pause',home:'Title screen'
+    }
+  };
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem('snake-out-of-bounds-v1') || '{}') || {}; } catch (_) {}
+  let lang = saved.lang === 'zh' ? 'zh' : 'en';
+  let best = Math.max(0, Math.floor(Number(saved.best) || 0));
+  let muted = Boolean(saved.muted), autoActivate = Boolean(saved.auto);
+  let model = new SnakeModel(92317), state = 'title', resumeState = 'playing';
+  let boost = false, oldBest = best, activations = 0, elapsedLast = 0, lastFrame = 0;
+  let particles = [], floaters = [], bannerUntil = 0, toastUntil = 0, flashUntil = 0, uiNow = 0;
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function t() { return text[lang]; }
+  function save() {
+    try { localStorage.setItem('snake-out-of-bounds-v1', JSON.stringify({best,lang,muted,auto:autoActivate})); } catch (_) {}
+  }
+  function clock(value) {
+    const seconds = Math.max(0, Math.floor(value));
+    return String(Math.floor(seconds / 60)).padStart(2,'0') + ':' + String(seconds % 60).padStart(2,'0');
+  }
+  function score(value) { return String(Math.max(0,Math.floor(value))).padStart(6,'0'); }
+  function notice(message) { $('toast').textContent = message; toastUntil = performance.now() + 2000; }
+  function audioPauseLater(forState, delay) { window.setTimeout(() => { if(state === forState) audio.setPaused(true); }, delay); }
+  function overlay() {
+    $('overlay').hidden = state === 'playing';
+    $('titlePanel').hidden = state !== 'title';
+    $('draftPanel').hidden = state !== 'draft';
+    $('pausePanel').hidden = state !== 'paused';
+    $('deathPanel').hidden = state !== 'dead';
+    $('pause').disabled = state === 'title' || state === 'dead';
+    $('pause').textContent = state === 'paused' ? '▶' : 'Ⅱ';
+    $('home').setAttribute('aria-label', state === 'playing' || state === 'draft' ? t().pause : t().home);
+    $('slogan').classList.toggle('show', false);
+    $('toast').classList.toggle('show', false);
+  }
+  function localize() {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    const dynamicControls = ['activate','home','pause','length'];
+    for (const [id,value] of Object.entries(t())) if(!dynamicControls.includes(id) && $(id) && typeof value === 'string') $(id).innerHTML = value;
+    $('language').textContent = lang === 'zh' ? 'EN' : '中文';
+    $('language').setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换至中文');
+    $('sound').setAttribute('aria-label', muted ? t().soundOff : t().soundOn);
+    $('sound').textContent = muted ? '×♪' : '♪';
+    $('sound').setAttribute('aria-pressed', String(muted));
+    $('pause').setAttribute('aria-label', t().pause);
+    $('home').setAttribute('aria-label', state === 'playing' || state === 'draft' ? t().pause : t().home);
+    canvas.setAttribute('aria-label', lang === 'zh' ? '贪吃蛇棋盘。WASD 或方向键移动，Space 激活规则。' : 'Snake board. WASD or arrows to move; Space to activate a rule.');
+    $('pauseHelp').innerHTML = t().controls.map(([key,label])=>'<div><kbd>'+key+'</kbd>'+label+'</div>').join('');
+    $('auto').checked = autoActivate;
+    $('draftHelp').textContent = autoActivate ? t().draftAuto : t().draftHelp;
+    if(state === 'draft' || (state === 'paused' && resumeState === 'draft')) drawChoices();
+    if(state === 'dead') deathDetails();
+    updateHUD();
+  }
+  function drawChoices() {
+    $('choices').replaceChildren();
+    (model.offered || []).forEach((id,index) => {
+      const rule = ruleMap[id], button = document.createElement('button');
+      button.className = 'choice'; button.style.setProperty('--card-color', rule.color);
+      button.setAttribute('aria-label', String(index + 1) + '. ' + rule.name[lang] + '. ' + rule.description[lang]);
+      button.innerHTML = '<span class="choice-number">'+String(index+1).padStart(2,'0')+'</span><span class="choice-symbol" aria-hidden="true">'+symbols[id]+'</span><b>'+rule.name[lang]+'</b><p>'+rule.description[lang]+'</p><small>'+t().pick+' '+(index+1)+'</small>';
+      button.onclick = () => choose(id);
+      $('choices').appendChild(button);
+    });
+  }
+  function start() {
+    audio.init(); audio.setMuted(muted); audio.setPaused(false);
+    model.reset((Date.now() ^ Math.floor(Math.random()*0xffffffff)) >>> 0);
+    state = 'playing'; oldBest = best; activations = 0; boost = false;
+    particles = []; floaters = []; bannerUntil = toastUntil = flashUntil = 0;
+    lastFrame = performance.now(); elapsedLast = 0;
+    overlay(); canvas.focus(); updateHUD();
+  }
+  function choose(id) {
+    if(state !== 'draft') return;
+    audio.init(); audio.setPaused(false);
+    if(!model.choose(id, {autoActivate})) return;
+    state = 'playing'; boost = false; lastFrame = performance.now();
+    overlay(); canvas.focus(); consumeEvents(); updateHUD();
+    if(!autoActivate) notice(t().readyHint + ruleMap[id].name[lang]);
+  }
+  function activate() {
+    if(state !== 'playing') return;
+    audio.init(); audio.setPaused(false);
+    if(!model.activate()) {
+      notice(!model.currentRule ? t().noRule : model.activeRemaining > 0 && model.currentRule === 'devour' ? t().minTail : t().inactive);
+    }
+    consumeEvents(); updateHUD(); canvas.focus();
+  }
+  function togglePause() {
+    if(state === 'playing' || state === 'draft') {
+      resumeState = state; state = 'paused'; boost = false; audio.setPaused(true); overlay(); updateHUD();
+    } else if(state === 'paused') {
+      state = resumeState; lastFrame = performance.now();
+      audio.init(); audio.setPaused(state !== 'playing'); overlay(); updateHUD(); canvas.focus();
+    }
+  }
+  function deathDetails() {
+    $('deathTitle').textContent = model.deathReason === 'complete' ? t().deathComplete : t().deathTitle;
+    $('deathReason').textContent = t().reasons[model.deathReason] || '';
+    $('finalScore').textContent = score(model.score);
+    $('finalLength').textContent = String(model.maxLength);
+    $('finalTime').textContent = clock(model.elapsed);
+    $('finalRules').textContent = String(activations);
+    $('newRecord').hidden = model.score <= oldBest;
+    $('deathEyebrow').textContent = model.deathReason === 'complete' ? 'BOARD CONQUERED' : 'RUN TERMINATED';
+  }
+  function updateHUD() {
+    const active = model.activeRemaining > 0, rule = ruleMap[model.currentRule];
+    $('best').textContent = score(best); $('score').textContent = score(model.score);
+    $('multiplier').innerHTML = '×'+model.multiplier()+' <small>'+t().mult+'</small>';
+    $('length').innerHTML = model.snake.length+' <small>'+t().length+'</small>';
+    $('time').textContent = clock(model.elapsed);
+    $('status').textContent = state === 'title' ? t().titleStatus : state === 'draft' ? t().draftStatus : state === 'paused' ? t().pauseStatus : state === 'dead' ? t().deadStatus : active ? t().active : model.ready ? t().armed : t().standard;
+    $('cabinet').classList.toggle('active', active);
+    $('cabinet').classList.toggle('armed', model.ready && !active);
+    $('cabinet').classList.toggle('warning', state === 'playing' && model.choiceDue <= 3);
+    $('ruleSymbol').textContent = rule ? symbols[rule.id] : '?';
+    $('ruleName').textContent = rule ? rule.name[lang] : t().empty;
+    $('ruleDescription').innerHTML = rule ? rule.description[lang] : t().emptyDesc;
+    $('ruleBadge').textContent = active ? model.activeRemaining.toFixed(1)+'s' : model.ready ? 'READY' : rule ? 'USED' : 'EMPTY';
+    $('activeBar').style.width = active ? Math.min(100,model.activeRemaining*10)+'%' : model.ready ? '100%' : '0%';
+    $('activate').disabled = state !== 'playing' || (!model.ready && !(active && rule && rule.id === 'devour' && model.snake.length > 3));
+    $('activateLabel').textContent = active ? rule.id === 'devour' ? t().devour : t().activeTimer+' · '+model.activeRemaining.toFixed(1)+'s' : model.ready || !rule ? t().activate : t().exhausted;
+    $('nextTime').textContent = model.offered ? 'PAUSED' : model.choiceDue.toFixed(1)+'s';
+    $('draftBar').style.width = Math.max(0,Math.min(100,(1-model.choiceDue/(rule ? 18 : 8))*100))+'%';
+    $('energyValue').textContent = Math.floor(model.energy)+'%'; $('energyBar').style.width = Math.min(100,model.energy)+'%';
+    $('applePoints').textContent = active && rule.id === 'invert' ? '+0' : '+10 × '+t().mult;
+    $('poisonPoints').textContent = active && (rule.id === 'antidote' || rule.id === 'invert') ? '+20 × '+t().mult : t().danger;
+    $('rockPoints').textContent = active && rule.id === 'velocity' ? '+4 × '+t().mult : active && rule.id === 'invert' ? '+12 × '+t().mult : t().danger;
+  }
+  function burst(x,y,color,amount) {
+    if(reducedMotion) return;
+    for(let i=0;i<amount;i++) particles.push({x:x+.5,y:y+.5,vx:(Math.random()-.5)*5,vy:(Math.random()-.5)*5,color,life:.6+Math.random()*.3,born:performance.now()});
+    if(particles.length > 160) particles.splice(0, particles.length-160);
+  }
+  function consumeEvents() {
+    for(const event of model.events.splice(0)) {
+      if(event.type !== 'energy' || event.amount > 0) audio.play(event.type);
+      if(event.type === 'activate') {
+        activations++; toastUntil = 0; bannerUntil = performance.now() + 1100; flashUntil = performance.now() + 330;
+        $('slogan').querySelector('strong').textContent = t().slogans[event.rule];
+        burst(event.x,event.y,ruleMap[event.rule].color,24);
+      } else if(event.type === 'expire') notice(t().expires);
+      else if(['eat','poison','cut','devour','rock','die'].includes(event.type)) {
+        const color = event.type === 'eat' ? '#89ff9d' : event.type === 'poison' ? '#d48aff' : event.type === 'die' ? '#ff6a82' : '#ffe783';
+        burst(Math.max(0,Math.min(27,event.x)),Math.max(0,Math.min(21,event.y)),color,event.type === 'die' ? 36 : 12);
+        if(event.amount > 0 && event.type !== 'devour') floaters.push({x:event.x,y:event.y,label:'+'+event.amount,color,born:performance.now()});
+      }
+    }
+  }
+  function boardPosition(point) {
+    const head = model.snake[0];
+    if(model.currentRule === 'relative' && model.activeRemaining > 0 && state !== 'title') return {x:((point.x-head.x+14)%28+28)%28,y:((point.y-head.y+11)%22+22)%22};
+    return point;
+  }
+  function tile(point, padding, color) {
+    const p = boardPosition(point); ctx.fillStyle = color; ctx.fillRect(p.x*30+padding,p.y*30+padding,30-2*padding,30-2*padding);
+  }
+  function drawApple(point,poison,now) {
+    const p=boardPosition(point),x=p.x*30,y=p.y*30;
+    const safe = model.activeRemaining>0 && ['antidote','invert'].includes(model.currentRule);
+    ctx.fillStyle = '#02060b'; ctx.fillRect(x+8,y+21,17,5);
+    ctx.fillStyle = poison ? '#643e94' : '#b84563'; ctx.fillRect(x+7,y+10,17,13); ctx.fillRect(x+10,y+23,11,3);
+    ctx.fillStyle = poison ? '#d397fc' : '#fc7188'; ctx.fillRect(x+5,y+9,17,12); ctx.fillRect(x+8,y+21,11,3);
+    ctx.fillStyle = poison ? '#f3d5ff' : '#ffb5b2'; ctx.fillRect(x+8,y+11,3,5);
+    ctx.fillStyle = '#95de83'; ctx.fillRect(x+15,y+3,3,7); ctx.fillRect(x+18,y+3,6,3);
+    if(poison) { ctx.fillStyle = '#573073'; ctx.fillRect(x+14,y+12,3,8); ctx.fillRect(x+11,y+15,9,3); }
+    if(poison && safe) {ctx.strokeStyle='#9effa9';ctx.lineWidth=1;ctx.strokeRect(x+2.5,y+2.5,25,25);}
+    if(model.activeRemaining>0 && model.currentRule==='hunt' && !poison) {
+      ctx.fillStyle='#68efd0';ctx.globalAlpha=.4+.3*Math.sin(now/180);ctx.fillRect(x+1,y+13,3,3);ctx.fillRect(x+26,y+13,3,3);ctx.globalAlpha=1;
+    }
+  }
+  function drawRock(point) {
+    const p=boardPosition(point),x=p.x*30,y=p.y*30,safe=model.activeRemaining>0 && ['velocity','invert'].includes(model.currentRule);
+    ctx.fillStyle='#172832';ctx.fillRect(x+3,y+3,24,24);ctx.fillStyle='#3d5560';ctx.fillRect(x+5,y+5,20,20);
+    ctx.fillStyle=safe?'#b591e8':'#657e84';ctx.fillRect(x+5,y+5,20,3);ctx.fillRect(x+5,y+8,3,17);
+    ctx.fillStyle='#263f4d';ctx.fillRect(x+10,y+10,12,12);ctx.fillStyle=safe?'#d4b5f8':'#587480';ctx.fillRect(x+12,y+12,8,3);ctx.fillRect(x+15,y+9,3,9);
+  }
+  function drawSnake(segments,direction) {
+    const active = model.activeRemaining > 0 && state !== 'title';
+    segments.slice().reverse().forEach((p, reverseIndex) => {
+      const head = reverseIndex === segments.length-1;
+      const pos=boardPosition(p),x=pos.x*30,y=pos.y*30;
+      ctx.fillStyle='#041811';ctx.fillRect(x+5,y+7,24,24);
+      ctx.fillStyle=head?'#caffbb':active?'#be83e6':'#73d991';ctx.fillRect(x+3,y+3,24,24);
+      ctx.fillStyle=head?'#91ef9f':active?'#704b99':'#347e61';ctx.fillRect(x+5,y+21,20,4);ctx.fillRect(x+23,y+5,3,18);
+      if(!head){ctx.fillStyle=active?'#e7c4ff':'#a5f5b3';ctx.fillRect(x+6,y+6,5,3);ctx.fillStyle=active?'#895cad':'#55a47d';ctx.fillRect(x+15,y+14,5,5);}
+      else {
+        const dx=direction.x,dy=direction.y,eyes=dx ? [{x:dx>0?19:7,y:8},{x:dx>0?19:7,y:20}] : [{x:8,y:dy>0?19:7},{x:20,y:dy>0?19:7}];
+        for(const e of eyes){ctx.fillStyle='#f0fff0';ctx.fillRect(x+e.x-3,y+e.y-3,7,7);ctx.fillStyle='#17332b';ctx.fillRect(x+e.x+dx-1,y+e.y+dy-1,3,3);}
+        if(active) {ctx.strokeStyle=ruleMap[model.currentRule].color;ctx.lineWidth=2;ctx.strokeRect(x+1,y+1,28,28);}
+      }
+    });
+  }
+  function render(now,dt) {
+    ctx.clearRect(0,0,840,660);ctx.fillStyle='#09141b';ctx.fillRect(0,0,840,660);
+    ctx.strokeStyle='#13272b';ctx.lineWidth=1;ctx.beginPath();
+    for(let x=0;x<=840;x+=30){ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,660);}for(let y=0;y<=660;y+=30){ctx.moveTo(0,y+.5);ctx.lineTo(840,y+.5);}ctx.stroke();
+    ctx.fillStyle='#203831';for(let x=15;x<840;x+=120)for(let y=15;y<660;y+=120)ctx.fillRect(x,y,2,2);
+    for(const point of model.obstacles) drawRock(point);
+    for(const point of model.poisons) drawApple(point,true,now);
+    for(const point of model.apples) drawApple(point,false,now);
+    if(state === 'title') {
+      const sample=[{x:7,y:5},{x:6,y:5},{x:5,y:5},{x:4,y:5},{x:3,y:5},{x:3,y:6},{x:3,y:7},{x:3,y:8},{x:3,y:9},{x:4,y:9},{x:5,y:9},{x:6,y:9},{x:7,y:9},{x:7,y:10},{x:7,y:11},{x:7,y:12},{x:6,y:12},{x:5,y:12}];
+      drawSnake(sample,{x:1,y:0});
+    } else drawSnake(model.snake,model.dir);
+    if(model.activeRemaining>0 && model.currentRule==='relative' && state!=='title') {
+      ctx.strokeStyle='#80aeff88';ctx.lineWidth=1;ctx.strokeRect(14*30-4.5,11*30-4.5,39,39);
+      ctx.fillStyle='#80aeff88';ctx.fillRect(14*30+14,11*30-12,2,6);ctx.fillRect(14*30+14,11*30+36,2,6);
+    }
+    const borderColor = model.activeRemaining>0?'#9b66d5':model.choiceDue<=3&&state==='playing'?'#baa25d':'#365848';
+    ctx.strokeStyle=borderColor;ctx.lineWidth=2;ctx.strokeRect(1,1,838,658);
+    const pdt = Math.min(.04,Math.max(0,dt));
+    particles=particles.filter(p=>now-p.born<p.life*1000);
+    for(const p of particles) {
+      p.x+=p.vx*pdt;p.y+=p.vy*pdt;
+      const pos=boardPosition(p),age=Math.max(0,(now-p.born)/1000);
+      ctx.globalAlpha=Math.max(0,1-age/p.life);ctx.fillStyle=p.color;ctx.fillRect(pos.x*30,pos.y*30,4,4);
+    }
+    ctx.globalAlpha=1;
+    floaters=floaters.filter(p=>now-p.born<900);
+    for(const p of floaters) {
+      const age=Math.max(0,(now-p.born)/1000),pos=boardPosition(p);
+      ctx.globalAlpha=Math.max(0,1-age/.9);ctx.fillStyle=p.color;ctx.font='bold 18px Consolas, monospace';ctx.textAlign='center';ctx.fillText(p.label,pos.x*30+15,pos.y*30-10-age*28);
+    }
+    ctx.globalAlpha=1;
+    if(now<flashUntil && !reducedMotion){const age=Math.max(0,(flashUntil-now)/330);ctx.fillStyle='#b678fa';ctx.globalAlpha=age*.09;ctx.fillRect(0,0,840,660);ctx.globalAlpha=1;ctx.fillStyle='#e4b5ff';ctx.globalAlpha=age*.3;ctx.fillRect(0,Math.floor(now/40)%22*30,840,3);ctx.globalAlpha=1;}
+    $('slogan').classList.toggle('show', state==='playing' && now<bannerUntil);
+    $('toast').classList.toggle('show', state==='playing' && now<toastUntil);
+  }
+  function frame(now) {
+    const dt=Math.min(.25,Math.max(0,(now-lastFrame)/1000));lastFrame=now;uiNow=now;
+    if(state==='playing') {
+      model.update(dt,{boost});consumeEvents();
+      if(model.score>best){best=model.score;save();}
+      if(!model.alive){state='dead';boost=false;deathDetails();overlay();audioPauseLater('dead',1100);}
+      else if(model.offered){state='draft';boost=false;drawChoices();overlay();audioPauseLater('draft',400);}
+    }
+    if(Math.abs(model.elapsed-elapsedLast)>.05 || state!=='playing'){updateHUD();elapsedLast=model.elapsed;}
+    render(now,dt);requestAnimationFrame(frame);
+  }
+  $('start').onclick=start; $('restart').onclick=start; $('restartPause').onclick=start;
+  $('resume').onclick=togglePause; $('pause').onclick=togglePause; $('activate').onclick=activate;
+  $('language').onclick=()=>{lang=lang==='zh'?'en':'zh';save();localize();};
+  $('sound').onclick=()=>{muted=!muted;audio.init();audio.setMuted(muted);save();localize();};
+  $('auto').onchange=()=>{autoActivate=$('auto').checked;save();localize();};
+  $('home').onclick=event=>{event.preventDefault();if(state==='playing'||state==='draft')togglePause();else if(state==='dead'||state==='paused'){state='title';boost=false;model.reset(92317);audio.setPaused(true);overlay();localize();}};
+  document.addEventListener('keydown',event=>{
+    const code=event.code, key=event.key.toLowerCase();
+    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(code)) {
+      if(code==='Space' && event.target && ['BUTTON','INPUT','SELECT','TEXTAREA'].includes(event.target.tagName)) return;
+      event.preventDefault();
+    }
+    if(key==='shift'){boost=state==='playing';return;}
+    if(event.repeat) return;
+    if(key==='l'){$('language').click();return;}if(key==='m'){$('sound').click();return;}
+    if(key==='r'){start();return;}if(code==='Escape'||key==='p'){togglePause();return;}
+    if(code==='Enter' && (state==='title'||state==='dead') && (!event.target || event.target.tagName!=='BUTTON')){start();return;}
+    if(state==='draft'&&(key==='1'||key==='2')){choose(model.offered[Number(key)-1]);return;}
+    if(code==='Space'){if(state==='title'||state==='dead')start();else activate();return;}
+    if(state!=='playing') return;
+    const move={w:[0,-1],arrowup:[0,-1],s:[0,1],arrowdown:[0,1],a:[-1,0],arrowleft:[-1,0],d:[1,0],arrowright:[1,0]}[key];
+    if(move)model.turn(move[0],move[1]);
+  });
+  document.addEventListener('keyup',event=>{if(event.key==='Shift')boost=false;});
+  window.addEventListener('blur',()=>{boost=false;if(state==='playing')togglePause();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden && state==='playing')togglePause();});
+  window.addEventListener('pagehide',()=>{save();audio.stop();});
+  audio.setMuted(muted);audio.setPaused(true);overlay();localize();requestAnimationFrame(frame);
+}());
+
+</script>
+</body>
+</html>

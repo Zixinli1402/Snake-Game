@@ -1,0 +1,39 @@
+SNAKE OUT OF BOUNDS — ENGLISH EDITION
+Local validation, 2026-10-09
+
+60 automated checks passed:
+28 JavaScript simulation checks: all eight rules, seeded spawns, food growth,
+pre-event score multipliers, collision types, vacating tail, queued turns,
+energy and boosts, 10-second expiry, 8/18-second drafts, paused timers,
+replacement without stacking, deferred Food Hunt growth, full board result.
+17 real game.js + actual HTML integration checks: English default, retained
+dynamic DOM labels, buttons and keyboard, all eight rule cards and legends,
+Space/manual/automatic activation, death restart, pause/resume, focus loss,
+saved high score and language/mute settings, unavailable storage, relative
+camera transforms, finite effect geometry and reduced-motion presentation.
+15 native C# self-tests: simulation parity and native preference round-trip.
+Native final build compiled without warnings.
+
+Actual browser play verified:
+Start, ordinary apple collection and growth, direction input, first two-card
+draft at eight active seconds, keyboard selection, Space activation, crossing
+the board edge during Wall Walker, pause/resume, R restart, fatal collision,
+death score/max length/survival, English interface and retained high score
+after reload. The final embedded single-file build was also started using
+the focused button's native Space activation, collected an apple and paused.
+No browser console errors or warnings in the tested session.
+Screenshots in this folder are captured from the actual browser UI.
+
+The Windows renderer was inspected using three headless offscreen renders
+(title, gameplay and draft). An interactive Windows desktop play session
+was not automated, and the headless tests do not write the runtime save.
+The program saves real user scores only when normally launched.
+
+Release checks verify the standalone English HTML has all CSS/JavaScript
+embedded, requires no network calls, and matches the browser preview copy.
+All three ZIPs are checked for integrity, expected paths and matching payloads.
+
+This is a desktop keyboard game. The final itch.io hosted embed, publication
+and jam submission require the publishing account owner's actions and were
+not performed. Browser/native high scores are separate. The standalone file
+handles unavailable localStorage by continuing gameplay without persistence.

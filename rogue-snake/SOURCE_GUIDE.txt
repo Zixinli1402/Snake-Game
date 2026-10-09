@@ -1,0 +1,57 @@
+SNAKE OUT OF BOUNDS — ENGLISH EDITION
+
+The game starts in English. Press L or the language button for Chinese.
+An explicit saved language preference takes precedence on subsequent launches.
+
+PLAY
+Open ../SnakeOutOfBounds.html in a desktop browser, or run
+../SnakeOutOfBounds-Windows.exe on Windows with .NET Framework 4.x.
+WASD / arrows: move; Space: activate; 1/2: choose; Shift: boost;
+Esc/P: pause; R: restart; L: language; M: sound.
+
+SOURCE PACKAGE
+Extract SnakeOutOfBounds-source.zip into a new folder and preserve its layout.
+outputs/rogue-snake/index.html is the editable browser entry point.
+styles.css: visual layout and arcade themes.
+model.js: deterministic simulation and eight rules.
+game.js: menus, keyboard, renderer, preferences, and score display.
+audio.js: original synthesized effects and ambience.
+work/snake-native/SnakeOutOfBounds.cs: native Windows implementation.
+work/snake/create_cover.py: procedural promotional cover (Python + Pillow).
+
+VERIFY / REBUILD FROM THE EXTRACTED ROOT
+node work/snake/test-model.cjs
+node work/snake/test-game.cjs
+powershell -ExecutionPolicy Bypass -File work/snake-native/rebuild-Windows.ps1 -SelfTest
+python work/snake/build-release.py
+python work/snake/check-release.py
+The Windows compiler is the system .NET Framework 4.x C# compiler.
+The Python packaging scripts use only the standard library.
+The release builder needs the Windows executable; rebuild it first if absent.
+To inspect native screens without opening an interactive window, add
+-RenderPreview to the Windows rebuild command.
+Run node work/snake/serve.cjs for an optional loopback-only browser preview
+at http://127.0.0.1:8766. No server is needed to play the single HTML file.
+
+TWO-PERSON HANDOFF
+A — gameplay / collision / eight rules / scoring / save preferences /
+    build scripts / model and integration checks / native Windows build.
+B — rule descriptions and balance / procedural art / UI / sound and music /
+    English release copy / cover and screenshots / attribution / itch checklist.
+All listed implementation and local packaging tasks are complete.
+Account publication, jam entry, and testing the final hosted embed remain
+the publishing owner's actions. No account login or submission was performed.
+
+RELEASE NOTES
+One 28 x 22 endless board; three ordinary apples, two poison apples and eight
+rocks initially. The first draft arrives after 8 active seconds; later drafts
+are 18 seconds apart. Drafts pause every gameplay timer. Only one rule can be
+held, each activated once for 10 seconds. Automatic activation is optional.
+Every 5 extra segments beyond length 5 increases the multiplier, up to 8x.
+Food/tail/rock scoring uses the multiplier before the event changes length.
+Stored boost energy remains available after Tail Burner ends.
+
+The browser and native implementations save high scores separately.
+The game has keyboard controls and is intended for desktop play.
+No external art, font files, audio recordings, samples or game libraries
+are bundled. See CREDITS.txt for the AI disclosure and MIT license.
