@@ -246,10 +246,10 @@
     });
   }
   function render(now,dt) {
-    ctx.clearRect(0,0,840,660);ctx.fillStyle='#09141b';ctx.fillRect(0,0,840,660);
-    ctx.strokeStyle='#13272b';ctx.lineWidth=1;ctx.beginPath();
+    ctx.clearRect(0,0,840,660);ctx.fillStyle='rgba(4,14,8,.12)';ctx.fillRect(0,0,840,660);
+    ctx.strokeStyle='rgba(21,68,35,.34)';ctx.lineWidth=1;ctx.beginPath();
     for(let x=0;x<=840;x+=30){ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,660);}for(let y=0;y<=660;y+=30){ctx.moveTo(0,y+.5);ctx.lineTo(840,y+.5);}ctx.stroke();
-    ctx.fillStyle='#203831';for(let x=15;x<840;x+=120)for(let y=15;y<660;y+=120)ctx.fillRect(x,y,2,2);
+    ctx.fillStyle='rgba(28,84,42,.42)';for(let x=15;x<840;x+=120)for(let y=15;y<660;y+=120)ctx.fillRect(x,y,2,2);
     for(const point of model.obstacles) drawRock(point);
     for(const point of model.poisons) drawApple(point,true,now);
     for(const point of model.apples) drawApple(point,false,now);

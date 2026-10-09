@@ -47,7 +47,7 @@ M — Mute
 Play in a desktop browser, preferably fullscreen. Click the game to enable sound and keyboard control. English is the default; L switches to Chinese. The death screen records score, maximum length, survival time, and high score. Browser high scores are saved when localStorage is available. An offline standalone HTML and a native Windows build are included; the native build uses .NET Framework 4.x and stores its own high score separately.
 
 AI AND ASSETS
-The concept and eight rules were supplied by the requester. Code, pixel geometry, cover art, interface copy, and synthesized audio were created with AI assistance from OpenAI Codex. Audio is generated at runtime from original tones and noise. No external artwork, recordings, samples, downloaded fonts, or game libraries are bundled. MIT-licensed source and credits are included.
+The concept, eight rules, and leafy gameplay background were supplied by the requester. Code, pixel geometry, cover art, interface copy, and synthesized audio were created with AI assistance from OpenAI Codex. Audio is generated at runtime from original tones and noise. No external recordings, samples, downloaded fonts, or game libraries are bundled. Source, credits, and background licensing notes are included.
 
 
 中文页面文案
@@ -87,7 +87,7 @@ M：静音
 请用桌面浏览器，建议全屏。先点击游戏启用声音与键盘操作。默认英文，按 L 切换中文。死亡结算记录分数、最大长度、生存时间及最高分；浏览器允许 localStorage 时会保存最高分。另提供离线单文件 HTML 与 Windows 原生版；原生版使用 .NET Framework 4.x，最高分单独保存。
 
 AI 与素材
-概念与八种规则由用户提出。代码、像素几何画面、封面、界面文案和合成音频由 OpenAI Codex 辅助生成。音频实时合成原创音调与噪声。不打包外部图片、录音、样本、下载字体或游戏程序库。附带 MIT 许可源码与完整归属说明。
+概念、八种规则和草地游戏背景由用户提供。代码、像素几何画面、封面、界面文案和合成音频由 OpenAI Codex 辅助生成。音频实时合成原创音调与噪声。不打包外部录音、样本、下载字体或游戏程序库。附带源码、完整归属和背景授权说明。
 
 
 UPLOAD SETTINGS / 上传设置

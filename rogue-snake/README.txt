@@ -12,9 +12,10 @@ Release files (relative to this rogue-snake folder)
 ../SnakeOutOfBounds-source.zip    Source and supporting files
 ../SnakeOutOfBounds-Windows.zip   Extract fully and run the included .exe
 ../SnakeOutOfBounds-Windows.exe   Native Windows application
+../game-background.png            Browser gameplay background
 cover.png                        Original geometric cover, 1280 × 720
 
-Open the standalone HTML in Edge, Chrome, or Firefox. Click Start to unlock sound. No internet, asset download, or external game engine is required. A 1280 × 850 viewport or F11 fullscreen is recommended. The native Windows application uses the standard .NET Framework 4.x system component; older Windows installations may need it enabled. The multi-file browser build needs index.html, styles.css, model.js, game.js, and audio.js kept together. The standalone HTML can be copied alone.
+Open the standalone HTML in Edge, Chrome, or Firefox. Keep game-background.png beside it. Click Start to unlock sound. No internet or external game engine is required. A 1280 × 850 viewport or F11 fullscreen is recommended. The native Windows application uses the standard .NET Framework 4.x system component; older Windows installations may need it enabled. The multi-file browser build needs index.html, styles.css, model.js, game.js, audio.js, and game-background.png kept together.
 
 Controls
 --------
@@ -66,7 +67,7 @@ A long snake collecting apples; the two-card choice screen; a Cut the Tail colli
 
 Credits
 -------
-The requester supplied the concept and eight rules. Code, programmatic pixel geometry, cover art, release copy, and runtime-synthesized audio were made with assistance from OpenAI Codex. No external images, recordings, music samples, font files, or libraries are bundled. See CREDITS.txt for attribution and the MIT license.
+The requester supplied the concept, eight rules, and the leafy gameplay background. Code, programmatic pixel geometry, cover art, release copy, and runtime-synthesized audio were made with assistance from OpenAI Codex. No external recordings, music samples, font files, or libraries are bundled. See CREDITS.txt for attribution and licensing notes.
 
 
 中文
@@ -81,11 +82,12 @@ The requester supplied the concept and eight rules. Code, programmatic pixel geo
 ../SnakeOutOfBounds-source.zip    源码与配套文件
 ../SnakeOutOfBounds-Windows.zip   Windows 程序包，完整解压后运行其中的 .exe
 ../SnakeOutOfBounds-Windows.exe   Windows 原生程序
+../game-background.png            浏览器版游戏背景
 cover.png                        1280 × 720 原创几何宣传封面
 
-网页版使用支持 Canvas 与 Web Audio 的现代桌面浏览器，如 Edge、Chrome 或 Firefox。点击开始后声音启用。无需联网、下载图片或音频，也不需要外部游戏引擎。推荐 1280 × 850 视口或 F11 全屏。
+网页版使用支持 Canvas 与 Web Audio 的现代桌面浏览器，如 Edge、Chrome 或 Firefox。请将 game-background.png 与 HTML 放在同一文件夹。点击开始后声音启用。无需联网，也不需要外部游戏引擎。推荐 1280 × 850 视口或 F11 全屏。
 
-Windows 程序使用系统标准 .NET Framework 4.x。现代 Windows 通常已提供；较旧系统可能需要启用该系统组件。Windows 与浏览器版本分别保存最高分。多文件网页版需保留 index.html、styles.css、model.js、game.js、audio.js；单文件 SnakeOutOfBounds.html 可单独复制与运行。
+Windows 程序使用系统标准 .NET Framework 4.x。现代 Windows 通常已提供；较旧系统可能需要启用该系统组件。Windows 与浏览器版本分别保存最高分。多文件网页版需保留 index.html、styles.css、model.js、game.js、audio.js 与 game-background.png；SnakeOutOfBounds.html 也需与 game-background.png 放在一起运行。
 
 操作
 ----
@@ -150,4 +152,4 @@ M                  开关声音
 
 AI 与许可
 ---------
-概念与八种规则由用户提出；代码、程序绘制的像素几何画面、宣传封面、文案和实时合成音频由 OpenAI Codex 辅助生成。没有打包外部图片、录音、音乐样本、字体或程序库。详见 CREDITS.txt；项目按 MIT 许可分发。
+概念、八种规则和草地游戏背景由用户提供；代码、程序绘制的像素几何画面、宣传封面、文案和实时合成音频由 OpenAI Codex 辅助生成。没有打包外部录音、音乐样本、字体或程序库。背景图片的发布权利应由提供者确认；详见 CREDITS.txt。

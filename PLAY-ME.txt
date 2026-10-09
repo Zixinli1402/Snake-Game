@@ -4,6 +4,7 @@ Extract this ZIP completely before playing.
 
 BROWSER
 Open SnakeOutOfBounds.html in a modern desktop browser.
+Keep game-background.png in the same folder as the HTML file.
 No internet connection or installation is required.
 
 WINDOWS

@@ -6,6 +6,7 @@ An explicit saved language preference takes precedence on subsequent launches.
 PLAY
 Open ../SnakeOutOfBounds.html in a desktop browser, or run
 ../SnakeOutOfBounds-Windows.exe on Windows with .NET Framework 4.x.
+Keep game-background.png beside each browser HTML file.
 WASD / arrows: move; Space: activate; 1/2: choose; Shift: boost;
 Esc/P: pause; R: restart; L: language; M: sound.
 
@@ -16,6 +17,7 @@ styles.css: visual layout and arcade themes.
 model.js: deterministic simulation and eight rules.
 game.js: menus, keyboard, renderer, preferences, and score display.
 audio.js: original synthesized effects and ambience.
+game-background.png: requester-supplied leafy gameplay background.
 work/snake-native/SnakeOutOfBounds.cs: native Windows implementation.
 work/snake/create_cover.py: procedural promotional cover (Python + Pillow).
 
